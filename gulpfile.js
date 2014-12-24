@@ -6,7 +6,7 @@ var source = require('vinyl-source-stream');
 var sourcemaps = require('gulp-sourcemaps');
 var watchify = require('watchify');
 
-var bundler = watchify(browserify('./src/index.jsx', watchify.args));
+var bundler = watchify(browserify('./src/js/index.jsx', watchify.args));
 
 // Reactify
 var reactify = require('reactify');
@@ -19,7 +19,7 @@ function bundle() {
     return bundler.bundle()
     .on('error', gutil.log.bind(gutil, 'Browserify Error')) // Log errors
 
-    .pipe(source('bundle.js'))
+    .pipe(source('index.js'))
 
     // // Sourcemaps (optional)
     // .pipe(buffer()).pipe(sourcemaps.init({
@@ -27,5 +27,5 @@ function bundle() {
     // })) // Loads map from Browserify file
     // .pipe(sourcemaps.write('./')) // Creates .map file
 
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest('./public/js'));
 }

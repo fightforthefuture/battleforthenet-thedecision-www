@@ -1,0 +1,14 @@
+body {
+    background-color: #166fae;
+}
+
+.logo {
+    opacity: 0;
+
+    -webkit-transition: all 1.3s 0.3s;
+            transition: all 1.3s 0.3s;
+}
+
+.logo.loaded {
+    opacity: 1;
+}
