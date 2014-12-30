@@ -15,9 +15,14 @@ bundler.transform('brfs');
 
 gulp.task('js', bundle); // Add task: 'gulp js'
 bundler.on('update', bundle); // Bundle when dependencies are updated
+
+function onError(e) {
+    console.log(e.toString());
+}
+
 function bundle() {
     return bundler.bundle()
-    .on('error', gutil.log.bind(gutil, 'Browserify Error')) // Log errors
+    .on('error', onError) // Log errors
 
     .pipe(source('index.js'))
 
