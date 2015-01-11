@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://www.battleforthenet.com/images/cruz_moron_2.png"/>
 <meta property="og:site_name" content="Battle For The Net"/>
 <meta property="og:description" content="Net neutrality is not a partisan issue. But Comcast sure wants to make it one. Tell Congress: don't be idiots."/>
- 
+
 <meta itemprop="name" content="Battle For The Net">
 <meta itemprop="description" content="You're our only hope.">
 <meta itemprop="image" content="https://www.battleforthenet.com/images/share_images/protest.png">
@@ -26,15 +26,12 @@
 <meta name="twitter:url" content="https://www.battleforthenet.com/#protest"/>
 <style>
 html, body {
+    background-color: #1b1b24;
+    font-family: arial, sans-serif;
     height: 100%;
     margin: 0;
     padding: 0;
     width: 100%;
-}
-
-html {
-    background-color: #1b1b24;
-    font-family: arial, sans-serif;
 }
 
 #battle {
@@ -74,13 +71,23 @@ html {
 }
 
 @-webkit-keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 @keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 .fadeIn {
@@ -89,7 +96,6 @@ html {
     animation-duration: 1s;
     animation-name: fadeIn;
 }
-
 </style>
 </head>
 <body class="loading">
@@ -111,8 +117,8 @@ html {
 <script>
 function loadCSS(href) {
     var link = document.createElement('link');
-    link.setAttribute('rel', 'stylesheet');
     link.setAttribute('href', href);
+    link.setAttribute('rel', 'stylesheet');
     document.head.appendChild(link);
 }
 function loadJS(src) {
@@ -121,7 +127,7 @@ function loadJS(src) {
     document.body.appendChild(script);
 }
 window.addEventListener('load', function() {
-    innerHeight; // Paint
+    innerHeight; // Paint before we fetch new assets.
     loadCSS('./css/battle.css');
     loadJS('./js/battle.js');
 });
