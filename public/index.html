@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <title>Join the Battle for Net Neutrality</title>
 <meta name="description" content="These could be the final days of the open web or the first days of the rebellion that saves it. Join the nationwide protest to save the Internet on November 13th">
 <meta name="author" content="Fight for the Future">
@@ -33,7 +33,7 @@ html, body {
 }
 
 html {
-    background-color: black;
+    background-color: #1b1b24;
     font-family: arial, sans-serif;
 }
 
@@ -41,10 +41,36 @@ html {
     color: white;
     position: absolute;
     text-align: center;
+    width: 100%;
+}
+
+#battle .padded-900 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 900px;
+    padding: 0 32px;
+
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
 }
 
 #battle h1 {
-    font-size: 30px;
+    font-size: 27px;
+}
+
+#battle p {
+    color: #e0e0e0;
+    font-size: 20px;
+}
+
+#battle .spinner {
+    height: 120px;
+}
+
+#battle .spinner rect {
+    opacity: 0;
 }
 
 @-webkit-keyframes fadeIn {
@@ -71,11 +97,13 @@ html {
 <div id="background"></div>
 
 <section id="battle" class="fadeIn">
-    <h1>
+    <div class="spinner"></div>
+
+    <h1 class="padded-900">
         The most important FCC vote of our lifetime is about to happen.
     </h1>
 
-    <p>
+    <p class="padded-900">
         Comcast wants to end net neutrality so it can push slow lanes on the Internet. On 2/26, the FCC will vote on handing the Internet over to Comcast or saving net neutrality. Their decision hinges on what they hear from Congress, companies, and us. We've spoken up, so now this is the most important person we need to make sure speaks up for net neutrality:
     </p>
 </section>

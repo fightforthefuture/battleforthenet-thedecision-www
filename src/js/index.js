@@ -5,3 +5,8 @@ new ImagePreloader('/images/background.jpg', function() {
     background.className = 'fadeIn';
     background.style.backgroundImage = 'url(' + this.src + ')';
 });
+
+var LoadingIcon = require('./LoadingIcon');
+new LoadingIcon({
+    target: '#battle .spinner'
+});
