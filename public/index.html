@@ -1,9 +1,98 @@
 <!doctype html>
 <html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 <head>
-    <title>Blueprint: Reactify</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <script src="/js/index.js"></script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join the Battle for Net Neutrality</title>
+<meta name="description" content="These could be the final days of the open web or the first days of the rebellion that saves it. Join the nationwide protest to save the Internet on November 13th">
+<meta name="author" content="Fight for the Future">
+<meta property="og:title" content="This is why your Internet is slow. And it’ll get worse. Unless you take 1 min to do this, now."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.battleforthenet.com"/>
+<meta property="og:image" content="https://www.battleforthenet.com/images/cruz_moron_2.png"/>
+<meta property="og:site_name" content="Battle For The Net"/>
+<meta property="og:description" content="Net neutrality is not a partisan issue. But Comcast sure wants to make it one. Tell Congress: don't be idiots."/>
+ 
+<meta itemprop="name" content="Battle For The Net">
+<meta itemprop="description" content="You're our only hope.">
+<meta itemprop="image" content="https://www.battleforthenet.com/images/share_images/protest.png">
+<meta name="twitter:vard" content="photo"/>
+<meta name="twitter:site" content="@FightForTheFtr"/>
+<meta name="twitter:title" content="Battle for the Net"/>
+<meta name="twitter:description" content="Net neutrality is not a partisan issue. But Comcast sure wants to make it one. Tell Congress: don't be idiots."/>
+<meta name="twitter:image" content="https://www.battleforthenet.com/images/cruz_moron.png"/>
+<meta name="twitter:url" content="https://www.battleforthenet.com/#protest"/>
+<style>
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+html {
+    background-color: black;
+    font-family: Verdana, sans-serif;
+}
+
+#battle {
+    color: white;
+    position: absolute;
+    text-align: center;
+}
+
+@-webkit-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+.fadeIn {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+
+.hidden {
+    display: none;
+}
+
+</style>
 </head>
-<body></body>
+<body class="loading">
+
+<div id="background"></div>
+
+<section id="battle" class="fadeIn">
+    <h1>The most important FCC vote of our lifetime is about to happen.</h1>
+    <p>
+        Comcast wants to end net neutrality so it can push slow lanes on the Internet. On 2/26, the FCC will vote on handing the Internet over to Comcast or saving net neutrality. Their decision hinges on what they hear from Congress, companies, and us. We've spoken up, so now this is the most important person we need to make sure speaks up for net neutrality:
+    </p>
+</section>
+
+<script>
+function loadCSS(href) {
+    var link = document.createElement('link');
+    link.setAttribute('rel', 'stylesheet');
+    link.setAttribute('href', href);
+    document.head.appendChild(link);
+}
+function loadJS(src) {
+    var script = document.createElement('script');
+    script.setAttribute('src', src);
+    document.body.appendChild(script);
+}
+window.addEventListener('load', function() {
+    innerHeight; // Paint
+    loadCSS('/css/battle.css');
+    loadJS('/js/battle.js');
+});
+</script>
+</body>
 </html>
