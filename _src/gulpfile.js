@@ -6,7 +6,7 @@ var source = require('vinyl-source-stream');
 var sourcemaps = require('gulp-sourcemaps');
 var watchify = require('watchify');
 
-var bundler = watchify(browserify('./src/js/index.js', watchify.args));
+var bundler = watchify(browserify('./js/index.js', watchify.args));
 
 bundler.transform('brfs');
 
@@ -23,5 +23,5 @@ function bundle() {
 
     .pipe(source('battle.js'))
 
-    .pipe(gulp.dest('./public/js'));
+    .pipe(gulp.dest('../js/'));
 }
