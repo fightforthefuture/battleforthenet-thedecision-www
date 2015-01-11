@@ -34,7 +34,7 @@ html, body {
 
 html {
     background-color: black;
-    font-family: Verdana, sans-serif;
+    font-family: arial, sans-serif;
 }
 
 #battle {
@@ -43,10 +43,15 @@ html {
     text-align: center;
 }
 
+#battle h1 {
+    font-size: 30px;
+}
+
 @-webkit-keyframes fadeIn {
     0% {opacity: 0;}
     100% {opacity: 1;}
 }
+
 @keyframes fadeIn {
     0% {opacity: 0;}
     100% {opacity: 1;}
@@ -54,13 +59,9 @@ html {
 
 .fadeIn {
     -webkit-animation-duration: 1s;
-    animation-duration: 1s;
     -webkit-animation-name: fadeIn;
+    animation-duration: 1s;
     animation-name: fadeIn;
-}
-
-.hidden {
-    display: none;
 }
 
 </style>
@@ -70,7 +71,10 @@ html {
 <div id="background"></div>
 
 <section id="battle" class="fadeIn">
-    <h1>The most important FCC vote of our lifetime is about to happen.</h1>
+    <h1>
+        The most important FCC vote of our lifetime is about to happen.
+    </h1>
+
     <p>
         Comcast wants to end net neutrality so it can push slow lanes on the Internet. On 2/26, the FCC will vote on handing the Internet over to Comcast or saving net neutrality. Their decision hinges on what they hear from Congress, companies, and us. We've spoken up, so now this is the most important person we need to make sure speaks up for net neutrality:
     </p>
