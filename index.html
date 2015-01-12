@@ -30,6 +30,7 @@ html, body {
     font-family: arial, sans-serif;
     height: 100%;
     margin: 0;
+    overflow-x: hidden;
     padding: 0;
     width: 100%;
 }
@@ -135,33 +136,11 @@ html, body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
-    -webkit-transform: scale(1.4) translate(0, -1px);
-            transform: scale(1.4) translate(0, -1px);
+    -webkit-transform: scale(2.3) translate3d(0, -32px, 0);
+            transform: scale(2.3) translate3d(0, -32px, 0);
 
-    -webkit-transition: all 0.4s;
-            transition: all 0.4s;
-}
-
-#battle .timer .card.hours .number {
-    -webkit-transition-delay: 0.1s;
-            transition-delay: 0.1s;
-}
-
-#battle .timer .card.minutes .number {
-    -webkit-transition-delay: 0.2s;
-            transition-delay: 0.2s;
-}
-
-#battle .timer .card.seconds .number {
-    -webkit-transition-delay: 0.3s;
-            transition-delay: 0.3s;
-}
-
-#battle .timer.loaded .card .number {
-    opacity: 1;
-
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    -webkit-transition: all 0.4s ease-out;
+            transition: all 0.4s ease-out;
 }
 
 #battle .timer .card .type {

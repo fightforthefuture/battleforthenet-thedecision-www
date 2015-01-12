@@ -1,3 +1,28 @@
+#battle .timer.loaded .card .number {
+    opacity: 1;
+
+    -webkit-transform: scale(1) translate3d(0, 0, 0);
+            transform: scale(1) translate3d(0, 0, 0);
+
+    -webkit-transition-delay: 0.1s;
+            transition-delay: 0.1s;
+}
+
+#battle .timer .card.hours .number {
+    -webkit-transition-delay: 0.2s;
+            transition-delay: 0.2s;
+}
+
+#battle .timer .card.minutes .number {
+    -webkit-transition-delay: 0.3s;
+            transition-delay: 0.3s;
+}
+
+#battle .timer .card.seconds .number {
+    -webkit-transition-delay: 0.4s;
+            transition-delay: 0.4s;
+}
+
 @-webkit-keyframes timer-spinner {
     0% {
         opacity: 1
@@ -14,7 +39,6 @@
         opacity: 0
     }
 }
-
 #battle .spinner .timer-spinner {
     height: 85px;
     opacity: 0.5;
