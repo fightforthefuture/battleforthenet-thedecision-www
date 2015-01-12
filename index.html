@@ -55,12 +55,13 @@ html, body {
 }
 
 #battle h1 {
-    font-size: 27px;
+    font-size: 28px;
 }
 
 #battle p {
     color: #e0e0e0;
     font-size: 20px;
+    line-height: 1.4;
 }
 
 #background {
@@ -93,12 +94,12 @@ html, body {
 }
 
 #battle .timer .card {
-    background-color: #747499;
+    background-color: #5d5d7a;
     border-radius: 8px;
     display: inline-block;
     height: 85px;
     margin-bottom: 4px;
-    padding: 14px 4px;
+    padding: 0 4px;
     position: relative;
     width: 80px;
 
@@ -128,19 +129,19 @@ html, body {
 
 #battle .timer .card .number {
     font-size: 60px;
-    font-weight: bold;
     line-height: 52px;
     opacity: 0;
+    padding-top: 14px;
 
-    background: -webkit-linear-gradient(#fff 49%, #d1d1e9 51%);
+    background: -webkit-linear-gradient(#fff 64%, #c9c9e6 66%, #dedef0 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
-    -webkit-transform: scale(2.3) translate3d(0, -32px, 0);
-            transform: scale(2.3) translate3d(0, -32px, 0);
+    -webkit-transform: scale(2.3) translate(0, -32px);
+            transform: scale(2.3) translate(0, -32px);
 
-    -webkit-transition: all 0.4s ease-out;
-            transition: all 0.4s ease-out;
+    -webkit-transition: opacity 0.4s ease-out, -webkit-transform 0.4s ease-out;
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
 #battle .timer .card .type {
@@ -151,7 +152,19 @@ html, body {
 
 #battle .timer .tagline {
     color: #8888b9;
-    font-size: 16px;
+    font-size: 17px;
+}
+
+.light {
+    font-weight: 300;
+}
+
+.regular {
+    font-weight: 400;
+}
+
+.bold {
+    font-weight: 700;
 }
 
 @-webkit-keyframes fadeIn {
@@ -207,53 +220,51 @@ html, body {
 
     <div class="timer">
         <div class="card days">
-            <div class="number">
-                -
-            </div>
+            <div class="number tk-bebas-neue">-</div>
 
-            <div class="type">
+            <div class="type tk-proxima-nova">
                 days
             </div>
         </div>
 
         <div class="card hours">
-            <div class="number">
-                -
-            </div>
+            <div class="number tk-bebas-neue">-</div>
 
-            <div class="type">
+            <div class="type tk-proxima-nova">
                 hours
             </div>
         </div>
 
         <div class="card minutes">
-            <div class="number">
-                -
-            </div>
+            <div class="number tk-bebas-neue">-</div>
 
-            <div class="type">
+            <div class="type tk-proxima-nova">
                 minutes
             </div>
         </div>
 
         <div class="card seconds">
-            <div class="number">
-                -
-            </div>
+            <div class="number tk-bebas-neue">-</div>
 
-            <div class="type">
+            <div class="type tk-proxima-nova">
                 seconds
             </div>
+        </div>
+
+        <div class="clear"></div>
+
+        <div class="tagline tk-proxima-nova light">
+            Until we win net neutrality, or lose it forever.
         </div>
     </div>
 
     <div class="clear"></div>
 
-    <h1 class="padded-900">
+    <h1 class="padded-900 tk-proxima-nova">
         The most important FCC vote of our lifetime is about to happen.
     </h1>
 
-    <p class="padded-900">
+    <p class="padded-900 tk-proxima-nova light">
         Comcast wants to end net neutrality so it can push slow lanes on the Internet. On 2/26, the FCC will vote on handing the Internet over to Comcast or saving net neutrality. Their decision hinges on what they hear from Congress, companies, and us. We've spoken up, so now this is the most important person we need to make sure speaks up for net neutrality:
     </p>
 
@@ -280,6 +291,7 @@ window.addEventListener('load', function() {
     innerHeight; // Paint before fetching new assets
     loadCSS('./css/battle.css');
     loadJS('./js/battle.js');
+    loadJS('./js/typekit.js');
 });
 </script>
 </body>
