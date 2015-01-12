@@ -70,10 +70,13 @@ html, body {
     opacity: 0;
 }
 
-#battle .politicians {
-    color: #5c5c8b;
+#battle .loading {
     -webkit-animation-delay: 1s;
     animation-delay: 1s;
+    color: #242430;
+
+    -webkit-transition: opacity 1s;
+            transition: opacity 1s;
 }
 
 @-webkit-keyframes fadeIn {
@@ -103,41 +106,15 @@ html, body {
     animation-name: fadeIn;
 }
 
-@-webkit-keyframes pulse {
-    0% {
-        opacity: 0;
-    }
-
-    50% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
-    }
-}
-
-@keyframes pulse {
-    0% {
-        opacity: 0;
-    }
-
-    50% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
-    }
-}
-
 .pulse {
-    -webkit-animation-duration: 2s;
-    -webkit-animation-name: pulse;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-duration: 1s;
     -webkit-animation-iteration-count: infinite;
-    animation-duration: 2s;
-    animation-name: pulse;
+    -webkit-animation-name: fadeIn;
+    animation-direction: alternate;
+    animation-duration: 1s;
     animation-iteration-count: infinite;
+    animation-name: fadeIn;
     opacity: 0;
 }
 </style>
@@ -157,9 +134,11 @@ html, body {
         Comcast wants to end net neutrality so it can push slow lanes on the Internet. On 2/26, the FCC will vote on handing the Internet over to Comcast or saving net neutrality. Their decision hinges on what they hear from Congress, companies, and us. We've spoken up, so now this is the most important person we need to make sure speaks up for net neutrality:
     </p>
 
-    <p class="politicians padded-900 pulse">
+    <p class="loading padded-900 pulse">
         Loading...
     </p>
+
+    <p class="politicians padded-900"></p>
 </section>
 
 <script>

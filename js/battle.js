@@ -11,7 +11,7 @@ var Queue = require('./Queue');
     // Preload the background
     new ImagePreloader('./images/background.jpg', function() {
         var background = document.getElementById('background');
-        background.className = 'fadeIn';
+        background.classList.add('fadeIn');
         background.style.backgroundImage = 'url(' + this.src + ')';
     });
 
@@ -28,7 +28,8 @@ var Queue = require('./Queue');
     var ajaxResponses = {};
     var ajaxQueue = new Queue({
         callback: function() {
-            var politiciansNode = document.querySelector('#battle .politicians');
+            var loadingNode = document.querySelector('#battle .loading');
+            loadingNode.remove();
 
             var isAmerican = (ajaxResponses.geography.country.iso_code === 'US');
             if (!isAmerican) {
@@ -38,11 +39,25 @@ var Queue = require('./Queue');
                     '\n\nPlease encourage your American friends & family to visit Battle for the Net.' +
                     '\n\nThanks for participating!';
                 alert(thanksMessage);
-                politiciansNode.textContent = 'Please encourage your American friends & family to visit Battle for the Net.';
+                return;
             }
 
-            politiciansNode.className = politiciansNode.className.replace(/ ?pulse ?/, '');
-            politiciansNode.textContent = '<form />';
+            var stateName = ajaxResponses.geography.subdivisions[0].names.en;
+            var politicians = ajaxResponses.politicians.filter(function(politician) {
+                return (
+                    (politician.gsx$state.$t === stateName)
+                    &&
+                    (politician.gsx$organization.$t === 'Senate')
+                );
+            });
+
+            var politiciansNode = document.querySelector('#battle .politicians');
+            politicians.forEach(function(politician) {
+                var politicianNode = document.createElement('div');
+                politicianNode.textContent = politician.gsx$first.$t + ' ' + politician.gsx$name.$t;
+                politiciansNode.appendChild(politicianNode);
+            });
+            politiciansNode.classList.add('fadeIn');
         },
         remaining: 2
     });
