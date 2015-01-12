@@ -1,3 +1,7 @@
+.typekit #battle h1 {
+    font-size: 28px;
+}
+
 .typekit #battle .timer .card .number {
     font-size: 70px;
     line-height: 60px;
