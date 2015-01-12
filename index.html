@@ -70,6 +70,12 @@ html, body {
     opacity: 0;
 }
 
+#battle .politicians {
+    color: #5c5c8b;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+}
+
 @-webkit-keyframes fadeIn {
     0% {
         opacity: 0;
@@ -96,6 +102,44 @@ html, body {
     animation-duration: 1s;
     animation-name: fadeIn;
 }
+
+@-webkit-keyframes pulse {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.pulse {
+    -webkit-animation-duration: 2s;
+    -webkit-animation-name: pulse;
+    -webkit-animation-iteration-count: infinite;
+    animation-duration: 2s;
+    animation-name: pulse;
+    animation-iteration-count: infinite;
+    opacity: 0;
+}
 </style>
 </head>
 <body class="loading">
@@ -111,6 +155,10 @@ html, body {
 
     <p class="padded-900">
         Comcast wants to end net neutrality so it can push slow lanes on the Internet. On 2/26, the FCC will vote on handing the Internet over to Comcast or saving net neutrality. Their decision hinges on what they hear from Congress, companies, and us. We've spoken up, so now this is the most important person we need to make sure speaks up for net neutrality:
+    </p>
+
+    <p class="politicians padded-900 pulse">
+        Loading...
     </p>
 </section>
 

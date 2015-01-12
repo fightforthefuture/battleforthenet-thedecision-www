@@ -1,18 +1,94 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"./js/index.js":[function(require,module,exports){
+var AJAX = require('./AJAX');
 var ImagePreloader = require('./ImagePreloader');
-
-new ImagePreloader('./images/background.jpg', function() {
-    var background = document.getElementById('background');
-    background.className = 'fadeIn';
-    background.style.backgroundImage = 'url(' + this.src + ')';
-});
-
 var LoadingIcon = require('./LoadingIcon');
-new LoadingIcon({
-    target: '#battle .spinner'
-});
+var Queue = require('./Queue');
 
-},{"./ImagePreloader":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\ImagePreloader.js","./LoadingIcon":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\LoadingIcon.js"}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\ImagePreloader.js":[function(require,module,exports){
+
+
+// Design enhancements
+(function(){
+    // Preload the background
+    new ImagePreloader('./images/background.jpg', function() {
+        var background = document.getElementById('background');
+        background.className = 'fadeIn';
+        background.style.backgroundImage = 'url(' + this.src + ')';
+    });
+
+    // Show the spinner
+    new LoadingIcon({
+        target: '#battle .spinner'
+    });
+})();
+
+
+
+// Load geography & politicians JSON
+(function() {
+    var ajaxResponses = {};
+    var ajaxQueue = new Queue({
+        callback: function() {
+            var politiciansNode = document.querySelector('#battle .politicians');
+
+            var isAmerican = (ajaxResponses.geography.country.iso_code === 'US');
+            if (!isAmerican) {
+                var countryName = ajaxResponses.geography.country.names.en;
+                var thanksMessage =
+                    'We noticed you are located in ' + countryName + '.' +
+                    '\n\nPlease encourage your American friends & family to visit Battle for the Net.' +
+                    '\n\nThanks for participating!';
+                alert(thanksMessage);
+                politiciansNode.textContent = 'Please encourage your American friends & family to visit Battle for the Net.';
+            }
+
+            politiciansNode.className = politiciansNode.className.replace(/ ?pulse ?/, '');
+            politiciansNode.textContent = '<form />';
+        },
+        remaining: 2
+    });
+    new AJAX({
+        url: 'https://fftf-geocoder.herokuapp.com',
+        success: function(e) {
+            var json = JSON.parse(e.target.responseText);
+            ajaxResponses.geography = json;
+            ajaxQueue.tick();
+        }
+    });
+    new AJAX({
+        url: 'https://spreadsheets.google.com/feeds/list/1-hBOL7oNJXWvUdhK0veiybSXaYFUZu1aNUuRyNeaUmg/default/public/values?alt=json',
+        success: function(e) {
+            var json = JSON.parse(e.target.responseText);
+            ajaxResponses.politicians = json.feed.entry;
+            ajaxQueue.tick();
+        }
+    });
+})();
+
+},{"./AJAX":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js","./ImagePreloader":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\ImagePreloader.js","./LoadingIcon":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\LoadingIcon.js","./Queue":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Queue.js"}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js":[function(require,module,exports){
+function AJAX(params) {
+    this.async = params.async || true;
+    this.error = params.error;
+    this.method = params.method || 'GET';
+    this.success = params.success;
+    this.url = params.url;
+
+    this.request = new XMLHttpRequest();
+    this.request.open(this.method, this.url, this.async);
+
+    if (this.success) {
+        this.request.onload = this.success;
+    }
+
+    if (this.error) {
+        this.request.onerror = this.error;
+    }
+
+    this.request.send();
+}
+
+module.exports = AJAX;
+
+},{}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\ImagePreloader.js":[function(require,module,exports){
 function ImagePreloader(src, callback) {
     this.callback = callback;
     this.src = src;
@@ -36,5 +112,28 @@ function LoadingIcon(params) {
 }
 
 module.exports = LoadingIcon;
+
+},{}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Queue.js":[function(require,module,exports){
+function Queue(params) {
+    this.callback = params.callback;
+    this.context = params.context || this;
+    this.remaining = params.remaining;
+}
+
+Queue.prototype.tick = function() {
+    this.remaining--;
+
+    if (this.remaining === 0) {
+        this.callback.call(this.context);
+        this.destroy();
+    }
+};
+
+Queue.prototype.destroy = function() {
+    delete this.callback;
+    delete this.context;
+};
+
+module.exports = Queue;
 
 },{}]},{},["./js/index.js"]);
