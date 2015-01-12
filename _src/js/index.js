@@ -1,4 +1,5 @@
 var AJAX = require('./AJAX');
+var Countdown = require('./Countdown');
 var ImagePreloader = require('./ImagePreloader');
 var LoadingIcon = require('./LoadingIcon');
 var Queue = require('./Queue');
@@ -7,6 +8,11 @@ var Queue = require('./Queue');
 
 // Design enhancements
 (function(){
+    // Start the countdown
+    var countdown = new Countdown({
+        date: new Date(Date.UTC(2015, 1, 26, 15, 30, 0)).getTime()
+    });
+
     // Preload the background
     new ImagePreloader('./images/background.jpg', function() {
         var background = document.getElementById('background');

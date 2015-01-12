@@ -62,12 +62,19 @@ html, body {
     font-size: 20px;
 }
 
-#battle .spinner {
-    height: 120px;
+#background {
+    background-position: top center;
+    background-repeat: no-repeat;
+    height: 100%;
+    min-height: 729px;
+    position: absolute;
+    width: 100%;
 }
 
-#battle .spinner rect {
-    opacity: 0;
+#battle .spinner {
+    height: 120px;
+    margin: 0 auto;
+    width: 200px;
 }
 
 #battle .loading {
@@ -78,14 +85,6 @@ html, body {
     -webkit-transition: opacity 1s;
             transition: opacity 1s;
 }
-
-/*
-# Circles
-width: 12px
-height: 12px
-border-radius: 6px
-background-color: #201b25
-*/
 
 #battle .timer {
     margin-top: -50px;
@@ -99,6 +98,7 @@ background-color: #201b25
     height: 85px;
     margin-bottom: 4px;
     padding: 14px 4px;
+    position: relative;
     width: 80px;
 
     -webkit-box-sizing: border-box;
@@ -106,10 +106,62 @@ background-color: #201b25
             box-sizing: border-box;
 }
 
+#battle .timer .card::after,
+#battle .timer .card::before {
+    background-color: #201b25;
+    border-radius: 6px;
+    content: '';
+    height: 12px;
+    position: absolute;
+    top: 38px;
+    width: 12px;
+}
+
+#battle .timer .card::after {
+    right: -8px;
+}
+
+#battle .timer .card::before {
+    left: -8px;
+}
+
 #battle .timer .card .number {
     font-size: 60px;
     font-weight: bold;
     line-height: 52px;
+    opacity: 0;
+
+    background: -webkit-linear-gradient(#fff 49%, #d1d1e9 51%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    -webkit-transform: scale(1.4) translate(0, -1px);
+            transform: scale(1.4) translate(0, -1px);
+
+    -webkit-transition: all 1s;
+            transition: all 1s;
+}
+
+#battle .timer .card.hours .number {
+    -webkit-transition-delay: 0.1s;
+            transition-delay: 0.1s;
+}
+
+#battle .timer .card.minutes .number {
+    -webkit-transition-delay: 0.2s;
+            transition-delay: 0.2s;
+}
+
+#battle .timer .card.seconds .number {
+    -webkit-transition-delay: 0.3s;
+            transition-delay: 0.3s;
+}
+
+#battle .timer.loaded .card .number {
+    opacity: 1;
+
+    -webkit-transform: scale(1);
+            transform: scale(1);
 }
 
 #battle .timer .card .type {
@@ -175,9 +227,9 @@ background-color: #201b25
     <div class="spinner"></div>
 
     <div class="timer">
-        <div class="card">
+        <div class="card days">
             <div class="number">
-                45
+                -
             </div>
 
             <div class="type">
@@ -185,9 +237,9 @@ background-color: #201b25
             </div>
         </div>
 
-        <div class="card">
+        <div class="card hours">
             <div class="number">
-                23
+                -
             </div>
 
             <div class="type">
@@ -195,9 +247,9 @@ background-color: #201b25
             </div>
         </div>
 
-        <div class="card">
+        <div class="card minutes">
             <div class="number">
-                12
+                -
             </div>
 
             <div class="type">
@@ -205,9 +257,9 @@ background-color: #201b25
             </div>
         </div>
 
-        <div class="card">
+        <div class="card seconds">
             <div class="number">
-                45
+                -
             </div>
 
             <div class="type">
