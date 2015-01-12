@@ -79,6 +79,55 @@ html, body {
             transition: opacity 1s;
 }
 
+/*
+# Circles
+width: 12px
+height: 12px
+border-radius: 6px
+background-color: #201b25
+*/
+
+#battle .timer {
+    margin-top: -50px;
+    position: relative;
+}
+
+#battle .timer .card {
+    background-color: rgba(93, 93, 122, 0.9);
+    border-radius: 8px;
+    display: inline-block;
+    height: 85px;
+    margin-bottom: 4px;
+    padding: 16px 0;
+    width: 79px;
+
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+#battle .timer .card svg {
+    font-size: 60px;
+    font-weight: bold;
+    height: 45px;
+    width: 70px;
+}
+
+#battle .timer .card svg text {
+    fill: url(#wood);
+}
+
+#battle .timer .card .type {
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#battle .timer .tagline {
+    color: #8888b9;
+    font-size: 16px;
+}
+
 @-webkit-keyframes fadeIn {
     0% {
         opacity: 0;
@@ -117,14 +166,90 @@ html, body {
     animation-name: fadeIn;
     opacity: 0;
 }
+
+.clear {
+    clear: both;
+}
 </style>
 </head>
-<body class="loading">
+<body>
 
 <div id="background"></div>
 
 <section id="battle" class="fadeIn">
     <div class="spinner"></div>
+
+    <div class="timer">
+        <div class="card">
+            <div class="number">
+                <svg>
+                    <defs>
+                        <pattern id="wood" patternUnits="userSpaceOnUse" width="120" height="49" >
+                            <image xlink:href="./images/timer-text-gradient.png" width="70" height="56" />
+                        </pattern>
+                    </defs>
+                    <text x="2" y="44">45</text>
+                </svg>
+            </div>
+
+            <div class="type">
+                days
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="number">
+                <svg>
+                    <defs>
+                        <pattern id="wood" patternUnits="userSpaceOnUse" width="120" height="49" >
+                            <image xlink:href="./images/timer-text-gradient.png" width="70" height="56" />
+                        </pattern>
+                    </defs>
+                    <text x="2" y="44">23</text>
+                </svg>
+            </div>
+
+            <div class="type">
+                hours
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="number">
+                <svg>
+                    <defs>
+                        <pattern id="wood" patternUnits="userSpaceOnUse" width="120" height="49" >
+                            <image xlink:href="./images/timer-text-gradient.png" width="70" height="56" />
+                        </pattern>
+                    </defs>
+                    <text x="2" y="44">12</text>
+                </svg>
+            </div>
+
+            <div class="type">
+                minutes
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="number">
+                <svg>
+                    <defs>
+                        <pattern id="wood" patternUnits="userSpaceOnUse" width="120" height="49" >
+                            <image xlink:href="./images/timer-text-gradient.png" width="70" height="56" />
+                        </pattern>
+                    </defs>
+                    <text x="2" y="44">45</text>
+                </svg>
+            </div>
+
+            <div class="type">
+                seconds
+            </div>
+        </div>
+    </div>
+
+    <div class="clear"></div>
 
     <h1 class="padded-900">
         The most important FCC vote of our lifetime is about to happen.

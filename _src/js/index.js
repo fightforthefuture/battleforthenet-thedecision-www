@@ -28,7 +28,7 @@ var Queue = require('./Queue');
     var ajaxQueue = new Queue({
         callback: function() {
             var loadingNode = document.querySelector('#battle .loading');
-            loadingNode.remove();
+            loadingNode.parentNode.removeChild(loadingNode);
 
             var isAmerican = (ajaxResponses.geography.country.iso_code === 'US');
             if (!isAmerican) {
