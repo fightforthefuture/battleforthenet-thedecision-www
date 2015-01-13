@@ -173,7 +173,7 @@ Countdown.prototype.padNumber = function(number) {
 };
 
 Countdown.prototype.requestAnimationFrame = function() {
-    var request = requestAnimationFrame || setTimeout;
+    var request = window.requestAnimationFrame || setTimeout;
     request(this.tick);
 };
 
