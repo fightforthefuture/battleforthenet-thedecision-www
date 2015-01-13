@@ -5,6 +5,7 @@ var Countdown = require('./Countdown');
 var ImagePreloader = require('./ImagePreloader');
 var LoadingIcon = require('./LoadingIcon');
 var Queue = require('./Queue');
+var Template = require('./Template');
 
 
 
@@ -54,35 +55,37 @@ var Queue = require('./Queue');
             var pleaseWaitNode = document.querySelector('#battle .please-wait');
             pleaseWaitNode.parentNode.removeChild(pleaseWaitNode);
 
-            var isAmerican = (ajaxResponses.geography.country.iso_code === 'US');
-            if (!isAmerican) {
-                var countryName = ajaxResponses.geography.country.names.en;
-                var thanksMessage =
-                    'We noticed you are located in ' + countryName + '.' +
-                    '\n\nPlease encourage your American friends & family to visit Battle for the Net.' +
-                    '\n\nThanks for participating!';
-                alert(thanksMessage);
-                return;
-            }
-
             var stateName = ajaxResponses.geography.subdivisions[0].names.en;
-            var politicians = ajaxResponses.politicians.filter(function(politician) {
-                return (
-                    (politician.gsx$state.$t === stateName)
-                    &&
-                    (politician.gsx$organization.$t === 'Senate')
-                );
-            });
+            alert(stateName);
 
-            var politiciansNode = document.querySelector('#battle .politicians');
-            politicians.forEach(function(politician) {
-                var politicianNode = document.createElement('div');
-                politicianNode.textContent = politician.gsx$first.$t + ' ' + politician.gsx$name.$t;
-                politiciansNode.appendChild(politicianNode);
-            });
-            politiciansNode.className = politiciansNode.className.replace(/loading/, ' ');
+            // var isAmerican = (ajaxResponses.geography.country.iso_code === 'US');
+            // var stateName = ajaxResponses.geography.subdivisions[0].names.en;
+            // if (!isAmerican) {
+            //     var countryName = ajaxResponses.geography.country.names.en;
+            //     var thanksMessage =
+            //         'We noticed you are located in ' + countryName + '.' +
+            //         '\n\nPlease encourage your American friends & family to visit Battle for the Net.' +
+            //         '\n\nThanks for participating!';
+            //     alert(thanksMessage);
+            //     return;
+            // }
+
+
+            // var politicians = ajaxResponses.politicians.filter(function(politician) {
+            //     return (
+            //         (politician.gsx$state.$t === stateName)
+            //         &&
+            //         (politician.gsx$organization.$t === 'Senate')
+            //     );
+            // });
+
+            // var politiciansNode = document.querySelector('#battle .politicians');
+            // politiciansNode.innerHTML = Template(ajaxResponses.formSnippet, {
+            //     test: 'lololol'
+            // });
+            // politiciansNode.className = politiciansNode.className.replace(/loading/, ' ');
         },
-        remaining: 2
+        remaining: 3
     });
     new AJAX({
         url: 'https://fftf-geocoder.herokuapp.com',
@@ -100,10 +103,17 @@ var Queue = require('./Queue');
             ajaxQueue.tick();
         }
     });
+    new AJAX({
+        url: 'snippets/form.html',
+        success: function(e) {
+            ajaxResponses.formSnippet = e.target.responseText;
+            ajaxQueue.tick();
+        }
+    });
 })();
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./AJAX":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js","./Countdown":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Countdown.js","./ImagePreloader":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\ImagePreloader.js","./LoadingIcon":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\LoadingIcon.js","./Queue":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Queue.js"}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js":[function(require,module,exports){
+},{"./AJAX":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js","./Countdown":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Countdown.js","./ImagePreloader":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\ImagePreloader.js","./LoadingIcon":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\LoadingIcon.js","./Queue":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Queue.js","./Template":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Template.js"}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js":[function(require,module,exports){
 function AJAX(params) {
     this.async = params.async || true;
     this.error = params.error;
@@ -276,5 +286,42 @@ Queue.prototype.destroy = function() {
 };
 
 module.exports = Queue;
+
+},{}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Template.js":[function(require,module,exports){
+// Simple JavaScript Templating
+// John Resig - http://ejohn.org/ - MIT Licensed
+var cache = {};
+
+var Template = function template(str, data){
+    // Figure out if we're getting a template, or if we need to
+    // load the template - and be sure to cache the result.
+    var fn = !/\W/.test(str) ?
+    cache[str] = cache[str] ||
+    Template(document.getElementById(str).innerHTML) :
+
+    // Generate a reusable function that will serve as a template
+    // generator (and which will be cached).
+    new Function("obj",
+        "var p=[],print=function(){p.push.apply(p,arguments);};" +
+
+    // Introduce the data as local variables using with(){}
+    "with(obj){p.push('" +
+
+    // Convert the template into pure JavaScript
+    str
+        .replace(/[\r\t\n]/g, " ")
+        .split("<%").join("\t")
+        .replace(/((^|%>)[^\t]*)'/g, "$1\r")
+        .replace(/\t=(.*?)%>/g, "',$1,'")
+        .split("\t").join("');")
+        .split("%>").join("p.push('")
+        .split("\r").join("\\'")
+            + "');}return p.join('');");
+
+    // Provide some basic currying to the user
+    return data ? fn( data ) : fn;
+};
+
+module.exports = Template;
 
 },{}]},{},["./js/index.js"]);
