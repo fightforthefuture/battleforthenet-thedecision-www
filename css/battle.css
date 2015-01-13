@@ -116,6 +116,19 @@ body.typekit #battle .timer .card .type {
             transition-delay: 0.4s;
 }
 
+
+
+/* Form */
+#form {
+    background-color: #fff;
+    border-radius: 6px;
+    height: 180px;
+    width: 270px;
+}
+
+
+
+/* Spinner */
 @-webkit-keyframes timer-spinner {
     0% {
         opacity: 1

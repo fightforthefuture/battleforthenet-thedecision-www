@@ -55,35 +55,31 @@ var Template = require('./Template');
             var pleaseWaitNode = document.querySelector('#battle .please-wait');
             pleaseWaitNode.parentNode.removeChild(pleaseWaitNode);
 
-            var stateName = ajaxResponses.geography.subdivisions[0].names.en;
-            alert(stateName);
+            var politicians = [];
+            if (ajaxResponses.geography.country.iso_code === 'US') {
+                var stateName = ajaxResponses.geography.subdivisions[0].names.en;
+                politicians = ajaxResponses.politicians.filter(function(politician) {
+                    return (
+                        (politician.gsx$state.$t === stateName)
+                        &&
+                        (politician.gsx$organization.$t === 'Senate')
+                    );
+                });
+            }
 
-            // var isAmerican = (ajaxResponses.geography.country.iso_code === 'US');
-            // var stateName = ajaxResponses.geography.subdivisions[0].names.en;
-            // if (!isAmerican) {
-            //     var countryName = ajaxResponses.geography.country.names.en;
-            //     var thanksMessage =
-            //         'We noticed you are located in ' + countryName + '.' +
-            //         '\n\nPlease encourage your American friends & family to visit Battle for the Net.' +
-            //         '\n\nThanks for participating!';
-            //     alert(thanksMessage);
-            //     return;
-            // }
+            if (true || politicians.length === 0) {
+                politicians = ajaxResponses.politicians.filter(function(politician) {
+                    return (
+                        (politician.gsx$team.$t === 'team-cable')
+                    );
+                });
+            }
 
-
-            // var politicians = ajaxResponses.politicians.filter(function(politician) {
-            //     return (
-            //         (politician.gsx$state.$t === stateName)
-            //         &&
-            //         (politician.gsx$organization.$t === 'Senate')
-            //     );
-            // });
-
-            // var politiciansNode = document.querySelector('#battle .politicians');
-            // politiciansNode.innerHTML = Template(ajaxResponses.formSnippet, {
-            //     test: 'lololol'
-            // });
-            // politiciansNode.className = politiciansNode.className.replace(/loading/, ' ');
+            var politiciansNode = document.querySelector('#battle .politicians');
+            politiciansNode.innerHTML = Template(ajaxResponses.formSnippet, {
+                politicians: politicians
+            });
+            politiciansNode.className = politiciansNode.className.replace(/loading/, ' ');
         },
         remaining: 3
     });
