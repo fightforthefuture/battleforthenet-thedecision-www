@@ -114,9 +114,27 @@ html, body {
     position: relative;
     width: 80px;
 
+    -webkit-animation-duration: 1.5s;
+            animation-duration: 1.5s;
+
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
+}
+
+#battle .timer .card.hours {
+    -webkit-animation-duration: 2.0s;
+            animation-duration: 2.0s;
+}
+
+#battle .timer .card.minutes {
+    -webkit-animation-duration: 2.5s;
+            animation-duration: 2.5s;
+}
+
+#battle .timer .card.seconds {
+    -webkit-animation-duration: 3.0s;
+            animation-duration: 3.0s;
 }
 
 #battle .timer .card::after,
@@ -242,7 +260,7 @@ html, body {
     <div class="spinner"></div>
 
     <div class="timer">
-        <div class="card days">
+        <div class="card days fadeIn">
             <div class="number tk-bebas-neue">-</div>
 
             <div class="type tk-proxima-nova">
@@ -250,7 +268,7 @@ html, body {
             </div>
         </div>
 
-        <div class="card hours">
+        <div class="card hours fadeIn">
             <div class="number tk-bebas-neue">-</div>
 
             <div class="type tk-proxima-nova">
@@ -258,7 +276,7 @@ html, body {
             </div>
         </div>
 
-        <div class="card minutes">
+        <div class="card minutes fadeIn">
             <div class="number tk-bebas-neue">-</div>
 
             <div class="type tk-proxima-nova">
@@ -266,7 +284,7 @@ html, body {
             </div>
         </div>
 
-        <div class="card seconds">
+        <div class="card seconds fadeIn">
             <div class="number tk-bebas-neue">-</div>
 
             <div class="type tk-proxima-nova">
