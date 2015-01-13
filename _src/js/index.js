@@ -79,7 +79,6 @@ var Queue = require('./Queue');
                 politiciansNode.appendChild(politicianNode);
             });
             politiciansNode.className = politiciansNode.className.replace(/loading/, ' ');
-            innerHeight; // Paint before fetching new assets
         },
         remaining: 2
     });
