@@ -103,7 +103,7 @@ jQuery(function($) {
         players = [];
 
         var imageBaseURL = 'images/scoreboard/';
-        if (location.href.match(/\/scoreboard\/$/)) {
+        if (location.href.match(/\/scoreboard\//)) {
             imageBaseURL = '../' + imageBaseURL;
         }
 
