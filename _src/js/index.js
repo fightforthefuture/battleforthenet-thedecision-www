@@ -9,9 +9,18 @@ var Queue = require('./Queue');
 // Design enhancements
 (function(){
     // Start the countdown
-    var countdown = new Countdown({
-        date: new Date(Date.UTC(2015, 1, 26, 15, 30, 0)).getTime()
-    });
+    setTimeout(function() {
+        var countdownDelay = 0;
+        if (!global.fontsAreReady) {
+            countdownDelay = 1000;
+        }
+
+        setTimeout(function() {
+            var countdown = new Countdown({
+                date: new Date(Date.UTC(2015, 1, 26, 15, 30, 0)).getTime()
+            });
+        }, countdownDelay);
+    }, 200);
 
     // Preload the background
     new ImagePreloader('./images/background.jpg', function() {
@@ -24,6 +33,13 @@ var Queue = require('./Queue');
     new LoadingIcon({
         target: '#battle .spinner'
     });
+
+    setTimeout(function() {
+        if (!global.fontsAreReady) {
+            global.fontsAreReady = true;
+            document.body.classList.add('loaded', 'slow');
+        }
+    }, 1200);
 })();
 
 
@@ -62,7 +78,6 @@ var Queue = require('./Queue');
                 politicianNode.textContent = politician.gsx$first.$t + ' ' + politician.gsx$name.$t;
                 politiciansNode.appendChild(politicianNode);
             });
-            politiciansNode.classList.add('fadeIn');
         },
         remaining: 2
     });

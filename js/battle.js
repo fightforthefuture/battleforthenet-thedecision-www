@@ -1,4 +1,5 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"./js/index.js":[function(require,module,exports){
+(function (global){
 var AJAX = require('./AJAX');
 var Countdown = require('./Countdown');
 var ImagePreloader = require('./ImagePreloader');
@@ -10,9 +11,18 @@ var Queue = require('./Queue');
 // Design enhancements
 (function(){
     // Start the countdown
-    var countdown = new Countdown({
-        date: new Date(Date.UTC(2015, 1, 26, 15, 30, 0)).getTime()
-    });
+    setTimeout(function() {
+        var countdownDelay = 0;
+        if (!global.fontsAreReady) {
+            countdownDelay = 1000;
+        }
+
+        setTimeout(function() {
+            var countdown = new Countdown({
+                date: new Date(Date.UTC(2015, 1, 26, 15, 30, 0)).getTime()
+            });
+        }, countdownDelay);
+    }, 200);
 
     // Preload the background
     new ImagePreloader('./images/background.jpg', function() {
@@ -25,6 +35,13 @@ var Queue = require('./Queue');
     new LoadingIcon({
         target: '#battle .spinner'
     });
+
+    setTimeout(function() {
+        if (!global.fontsAreReady) {
+            global.fontsAreReady = true;
+            document.body.classList.add('loaded', 'slow');
+        }
+    }, 1200);
 })();
 
 
@@ -63,7 +80,6 @@ var Queue = require('./Queue');
                 politicianNode.textContent = politician.gsx$first.$t + ' ' + politician.gsx$name.$t;
                 politiciansNode.appendChild(politicianNode);
             });
-            politiciansNode.classList.add('fadeIn');
         },
         remaining: 2
     });
@@ -85,6 +101,7 @@ var Queue = require('./Queue');
     });
 })();
 
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./AJAX":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js","./Countdown":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Countdown.js","./ImagePreloader":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\ImagePreloader.js","./LoadingIcon":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\LoadingIcon.js","./Queue":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Queue.js"}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js":[function(require,module,exports){
 function AJAX(params) {
     this.async = params.async || true;

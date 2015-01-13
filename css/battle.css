@@ -1,14 +1,29 @@
-.typekit #battle h1 {
+body.slow .tk-bebas-neue,
+body.slow .tk-proxima-nova {
+    font-family: arial, sans-serif !important;
+}
+
+body.typekit #battle h1 {
     font-size: 28px;
 }
 
-.typekit #battle .timer .card .number {
+body.typekit #battle p {
+    font-size: 20px;
+}
+
+body.loaded #battle h1,
+body.loaded #battle p {
+    opacity: 1;
+}
+
+body.typekit #battle .timer .card .number {
     font-size: 70px;
+    font-weight: normal;
     line-height: 60px;
     padding-top: 8px;
 }
 
-.typekit #battle .timer .card .type {
+body.typekit #battle .timer .card .type {
     font-size: 11px;
     font-weight: bold;
     text-transform: uppercase;

@@ -54,14 +54,25 @@ html, body {
             box-sizing: border-box;
 }
 
+#battle h1,
+#battle p {
+    opacity: 0;
+
+    -webkit-transition: opacity 0.6s;
+            transition: opacity 0.6s;
+}
+
 #battle h1 {
     font-size: 27px;
 }
 
 #battle p {
     color: #e0e0e0;
-    font-size: 20px;
-    line-height: 1.4;
+    font-size: 19px;
+    line-height: 26px;
+
+    -webkit-transition-delay: 0.2s;
+            transition-delay: 0.2s;
 }
 
 #background {
@@ -129,6 +140,7 @@ html, body {
 
 #battle .timer .card .number {
     font-size: 60px;
+    font-weight: bold;
     line-height: 52px;
     opacity: 0;
     padding-top: 14px;
@@ -154,6 +166,16 @@ html, body {
     color: #8888b9;
     font-size: 17px;
     line-height: 22px;
+}
+
+.delay-1s {
+    -webkit-animation-delay: 1s;
+            animation-delay: 1s;
+}
+
+.delay-2s {
+    -webkit-animation-delay: 2s;
+            animation-delay: 2s;
 }
 
 .light {
@@ -273,10 +295,14 @@ html, body {
         Loading...
     </p>
 
-    <p class="politicians padded-900"></p>
+    <p class="politicians padded-900 tk-proxima-nova light"></p>
 </section>
 
 <script>
+var global = {
+    fontsAreReady: false
+};
+
 function loadCSS(href) {
     var link = document.createElement('link');
     link.setAttribute('href', href);

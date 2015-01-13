@@ -55,13 +55,20 @@ W.K=!J.sa;W.xa=!J.sw;W.ha=!J.sb;X.ia=W;J.f&&(fb=new L(J.f),X.Z=fb);var K;if(J.fn
 Typekit.load({
     loading: function() {
         // JavaScript to execute when fonts start loading
+        console.log('Loading...');
     },
     active: function() {
         // JavaScript to execute when fonts become active
-        console.log('Fonts loaded.');
-        document.body.classList.add('typekit');
+        if (global.fontsAreReady) {
+            return;
+        }
+
+        console.log('Active...');
+        global.fontsAreReady = true;
+        document.body.classList.add('typekit', 'loaded');
     },
-    inactive: function() {
+    inactive: function(e) {
         // JavaScript to execute when fonts become inactive
+        console.log('Inactive...');
     }
 });
