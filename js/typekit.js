@@ -65,7 +65,7 @@ Typekit.load({
 
         console.log('Active...');
         global.fontsAreReady = true;
-        document.body.classList.add('typekit', 'loaded');
+        document.body.className += ' typekit loaded ';
     },
     inactive: function(e) {
         // JavaScript to execute when fonts become inactive

@@ -27,7 +27,7 @@ var Queue = require('./Queue');
     // Preload the background
     new ImagePreloader('./images/background.jpg', function() {
         var background = document.getElementById('background');
-        background.classList.add('fadeIn');
+        background.className += ' fadeIn ';
         background.style.backgroundImage = 'url(' + this.src + ')';
     });
 
@@ -39,7 +39,7 @@ var Queue = require('./Queue');
     setTimeout(function() {
         if (!global.fontsAreReady) {
             global.fontsAreReady = true;
-            document.body.classList.add('loaded', 'slow');
+            document.body.className += ' loaded slow ';
         }
     }, 1200);
 })();
@@ -80,7 +80,7 @@ var Queue = require('./Queue');
                 politicianNode.textContent = politician.gsx$first.$t + ' ' + politician.gsx$name.$t;
                 politiciansNode.appendChild(politicianNode);
             });
-            politiciansNode.classList.remove('loading');
+            politiciansNode.className = politiciansNode.className.replace(/loading/, ' ');
             innerHeight; // Paint before fetching new assets
         },
         remaining: 2
