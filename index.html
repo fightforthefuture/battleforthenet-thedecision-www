@@ -75,6 +75,16 @@ html, body {
             transition-delay: 0.2s;
 }
 
+#battle p.please-wait {
+    color: #5d5d7a;
+
+    -webkit-animation-delay: 2s;
+            animation-delay: 2s;
+
+    -webkit-transition: opacity 1s;
+            transition: opacity 1s;
+}
+
 #background {
     background-position: top center;
     background-repeat: no-repeat;
@@ -88,15 +98,6 @@ html, body {
     height: 120px;
     margin: 0 auto;
     width: 200px;
-}
-
-#battle .loading {
-    -webkit-animation-delay: 1s;
-    animation-delay: 1s;
-    color: #242430;
-
-    -webkit-transition: opacity 1s;
-            transition: opacity 1s;
 }
 
 #battle .timer {
@@ -309,11 +310,11 @@ html, body {
         Comcast wants to end net neutrality so it can push slow lanes on the Internet. On 2/26, the FCC will vote on handing the Internet over to Comcast or saving net neutrality. Their decision hinges on what they hear from Congress, companies, and us. We've spoken up, so now this is the most important person we need to make sure speaks up for net neutrality:
     </p>
 
-    <p class="loading padded-900 pulse">
-        Loading...
+    <p class="please-wait padded-900 pulse">
+        Please wait...
     </p>
 
-    <p class="politicians padded-900 tk-proxima-nova light"></p>
+    <p class="politicians loading padded-900 tk-proxima-nova light"></p>
 </section>
 
 <script>

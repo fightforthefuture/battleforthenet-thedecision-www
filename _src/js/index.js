@@ -49,8 +49,8 @@ var Queue = require('./Queue');
     var ajaxResponses = {};
     var ajaxQueue = new Queue({
         callback: function() {
-            var loadingNode = document.querySelector('#battle .loading');
-            loadingNode.parentNode.removeChild(loadingNode);
+            var pleaseWaitNode = document.querySelector('#battle .please-wait');
+            pleaseWaitNode.parentNode.removeChild(pleaseWaitNode);
 
             var isAmerican = (ajaxResponses.geography.country.iso_code === 'US');
             if (!isAmerican) {
@@ -78,6 +78,8 @@ var Queue = require('./Queue');
                 politicianNode.textContent = politician.gsx$first.$t + ' ' + politician.gsx$name.$t;
                 politiciansNode.appendChild(politicianNode);
             });
+            politiciansNode.classList.remove('loading');
+            innerHeight; // Paint before fetching new assets
         },
         remaining: 2
     });

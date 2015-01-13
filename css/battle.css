@@ -16,6 +16,15 @@ body.loaded #battle p {
     opacity: 1;
 }
 
+body.loaded #battle p.politicians {
+    -webkit-transition-delay: 0s;
+            transition-delay: 0s;
+}
+
+body.loaded #battle p.politicians.loading {
+    opacity: 0;
+}
+
 body.typekit #battle .timer .card .number {
     font-size: 70px;
     font-weight: normal;
