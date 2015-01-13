@@ -197,11 +197,60 @@ html, body {
 .clear {
     clear: both;
 }
+
+header nav {
+    background-color: #12121a;
+    height: 66px;
+    position: relative;
+    text-align: center;
+}
+
+header nav a {
+    color: #94949d;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 66px;
+    opacity: 0;
+    padding: 0 12px;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    -webkit-transition: opacity 1s 0.3s;
+            transition: opacity 1s 0.3s;
+}
+
+header nav a:active,
+header nav a:hover {
+    color: #2dbb9b;
+}
+
+@media screen and (min-width: 460px) {
+    .mobile {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 459px) {
+    .desktop {
+        display: none !important;
+    }
+}
 </style>
 </head>
 <body>
 
+<div id="home"></div>
+
 <div id="background"></div>
+
+<header class="desktop">
+    <nav class="tk-proxima-nova bold">
+        <a href="#home">home</a>
+        <a href="#what-to-do">what to do</a>
+        <a href="#team-cable">team cable</a>
+        <a href="#team-internet">team internet</a>
+    </nav>
+</header>
 
 <section id="battle" class="fadeIn">
     <div class="spinner"></div>
