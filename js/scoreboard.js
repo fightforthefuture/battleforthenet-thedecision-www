@@ -102,6 +102,11 @@ jQuery(function($) {
         $isotope.html('');
         players = [];
 
+        var imageBaseURL = 'images/scoreboard/';
+        if (location.href.match(/\/scoreboard\/$/)) {
+            imageBaseURL = '../' + imageBaseURL;
+        }
+
         for (var i in data) {
             var player = data[i];
 
@@ -109,7 +114,7 @@ jQuery(function($) {
                 frontpage: +player.gsx$frontpage.$t,
                 name: player.gsx$name.$t,
                 organization: player.gsx$organization.$t,
-                image: '/images/scoreboard/' + player.gsx$imagepleasedontedit.$t,
+                image: imageBaseURL + player.gsx$imagepleasedontedit.$t,
                 weight: player.gsx$weight.$t,
                 team: player.gsx$team.$t || 'undecided',
                 size: player.gsx$size.$t,
