@@ -1,3 +1,47 @@
+#battle .timer .card {
+    background-color: #5d5d7a;
+    border-radius: 8px;
+
+    -webkit-transition: opacity 0.4s ease-out;
+            transition: opacity 0.4s ease-out;
+}
+
+#battle .timer .card::after,
+#battle .timer .card::before {
+    background-color: #201b25;
+    border-radius: 6px;
+    content: '';
+    height: 12px;
+    position: absolute;
+    top: 38px;
+    width: 12px;
+}
+
+#battle .timer .card::after {
+    right: -8px;
+}
+
+#battle .timer .card::before {
+    left: -8px;
+}
+
+#battle .timer .card .number {
+    font-size: 60px;
+    font-weight: bold;
+    line-height: 52px;
+    padding-top: 14px;
+
+    background: -webkit-linear-gradient(#fff 64%, #c9c9e6 66%, #dedef0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#battle .timer .card .type {
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
 body.slow .tk-bebas-neue,
 body.slow .tk-proxima-nova {
     font-family: arial, sans-serif !important;
@@ -38,7 +82,12 @@ body.typekit #battle .timer .card .type {
     text-transform: uppercase;
 }
 
-#battle .timer.loaded .card .number {
+#battle .timer.loaded .tagline {
+    opacity: 1;
+}
+
+
+#battle .timer.loaded .card {
     opacity: 1;
 
     -webkit-transform: scale(1) translate(0, 0);
@@ -48,17 +97,17 @@ body.typekit #battle .timer .card .type {
             transition-delay: 0.1s;
 }
 
-#battle .timer .card.hours .number {
+#battle .timer .card.hours {
     -webkit-transition-delay: 0.2s;
             transition-delay: 0.2s;
 }
 
-#battle .timer .card.minutes .number {
+#battle .timer .card.minutes {
     -webkit-transition-delay: 0.3s;
             transition-delay: 0.3s;
 }
 
-#battle .timer .card.seconds .number {
+#battle .timer .card.seconds {
     -webkit-transition-delay: 0.4s;
             transition-delay: 0.4s;
 }

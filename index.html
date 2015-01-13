@@ -106,86 +106,31 @@ html, body {
     position: relative;
 }
 
-#battle .timer .card {
-    background-color: #5d5d7a;
-    border-radius: 8px;
-    display: inline-block;
-    height: 85px;
-    margin-bottom: 4px;
-    padding: 0 4px;
-    position: relative;
-    width: 80px;
-
-    -webkit-animation-duration: 1.5s;
-            animation-duration: 1.5s;
-
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
-}
-
-#battle .timer .card.hours {
-    -webkit-animation-duration: 2.0s;
-            animation-duration: 2.0s;
-}
-
-#battle .timer .card.minutes {
-    -webkit-animation-duration: 2.5s;
-            animation-duration: 2.5s;
-}
-
-#battle .timer .card.seconds {
-    -webkit-animation-duration: 3.0s;
-            animation-duration: 3.0s;
-}
-
-#battle .timer .card::after,
-#battle .timer .card::before {
-    background-color: #201b25;
-    border-radius: 6px;
-    content: '';
-    height: 12px;
-    position: absolute;
-    top: 38px;
-    width: 12px;
-}
-
-#battle .timer .card::after {
-    right: -8px;
-}
-
-#battle .timer .card::before {
-    left: -8px;
-}
-
-#battle .timer .card .number {
-    font-size: 60px;
-    font-weight: bold;
-    line-height: 52px;
-    opacity: 0;
-    padding-top: 14px;
-
-    background: -webkit-linear-gradient(#fff 64%, #c9c9e6 66%, #dedef0 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    -webkit-transform: scale(2.3) translate(0, -32px);
-            transform: scale(2.3) translate(0, -32px);
-
-    -webkit-transition: opacity 0.4s ease-out, -webkit-transform 0.4s ease-out;
-            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-}
-
-#battle .timer .card .type {
-    font-size: 11px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
 #battle .timer .tagline {
     color: #8888b9;
     font-size: 17px;
     line-height: 22px;
+    opacity: 0;
+
+    -webkit-transition: opacity 0.8s;
+            transition: opacity 0.8s;
+}
+
+#battle .timer .card {
+    display: inline-block;
+    height: 85px;
+    margin-bottom: 4px;
+    opacity: 0;
+    padding: 0 4px;
+    position: relative;
+    width: 80px;
+
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+
+    -webkit-transition: opacity 0.8s;
+            transition: opacity 0.8s;
 }
 
 .delay-1s {
@@ -231,9 +176,9 @@ html, body {
 }
 
 .fadeIn {
-    -webkit-animation-duration: 1s;
+    -webkit-animation-duration: 2s;
     -webkit-animation-name: fadeIn;
-    animation-duration: 1s;
+    animation-duration: 2s;
     animation-name: fadeIn;
 }
 
@@ -262,7 +207,7 @@ html, body {
     <div class="spinner"></div>
 
     <div class="timer">
-        <div class="card days fadeIn">
+        <div class="card days">
             <div class="number tk-bebas-neue">-</div>
 
             <div class="type tk-proxima-nova">
@@ -270,7 +215,7 @@ html, body {
             </div>
         </div>
 
-        <div class="card hours fadeIn">
+        <div class="card hours">
             <div class="number tk-bebas-neue">-</div>
 
             <div class="type tk-proxima-nova">
@@ -278,7 +223,7 @@ html, body {
             </div>
         </div>
 
-        <div class="card minutes fadeIn">
+        <div class="card minutes">
             <div class="number tk-bebas-neue">-</div>
 
             <div class="type tk-proxima-nova">
@@ -286,7 +231,7 @@ html, body {
             </div>
         </div>
 
-        <div class="card seconds fadeIn">
+        <div class="card seconds">
             <div class="number tk-bebas-neue">-</div>
 
             <div class="type tk-proxima-nova">
