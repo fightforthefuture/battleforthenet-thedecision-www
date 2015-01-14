@@ -133,10 +133,11 @@ a {
 }
 
 #battle .timer .card {
+    border-radius: 8px;
+    background-color: rgba(93, 93, 122, 0.2);
     display: inline-block;
     height: 85px;
     margin-bottom: 4px;
-    opacity: 0;
     padding: 0 4px;
     position: relative;
     width: 80px;
@@ -144,6 +145,10 @@ a {
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
+}
+
+#battle .timer .card > div {
+    opacity: 0;
 
     -webkit-transition: opacity 0.8s;
             transition: opacity 0.8s;

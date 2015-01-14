@@ -3,9 +3,11 @@ body.loaded header nav a {
 }
 
 #battle .timer .card {
-    background-color: #5d5d7a;
-    border-radius: 8px;
+    -webkit-transition: background-color 0.4s ease-out;
+            transition: background-color 0.6s ease-out;
+}
 
+#battle .timer .card > div {
     -webkit-transition: opacity 0.4s ease-out;
             transition: opacity 0.4s ease-out;
 }
@@ -92,26 +94,30 @@ body.typekit #battle .timer .card .type {
 
 
 #battle .timer.loaded .card {
-    opacity: 1;
+    background-color: rgba(93, 93, 122, 1);
 
     -webkit-transform: scale(1) translate(0, 0);
             transform: scale(1) translate(0, 0);
+}
+
+#battle .timer.loaded .card > div {
+    opacity: 1;
 
     -webkit-transition-delay: 0.1s;
             transition-delay: 0.1s;
 }
 
-#battle .timer .card.hours {
+#battle .timer .card.hours > div {
     -webkit-transition-delay: 0.2s;
             transition-delay: 0.2s;
 }
 
-#battle .timer .card.minutes {
+#battle .timer .card.minutes > div {
     -webkit-transition-delay: 0.3s;
             transition-delay: 0.3s;
 }
 
-#battle .timer .card.seconds {
+#battle .timer .card.seconds > div {
     -webkit-transition-delay: 0.4s;
             transition-delay: 0.4s;
 }
@@ -235,9 +241,9 @@ body #battle #petition input {
     font-size: 15px;
     font-weight: bold;
     height: 43px;
-    line-height: 43px;
+    line-height: 19px;
     margin: 0;
-    padding: 0 14px;
+    padding: 12px 14px;
     width: 100%;
     -webkit-appearance: none;
     -webkit-box-sizing: border-box;
@@ -294,6 +300,22 @@ body #battle p.disclaimer a {
 body #battle p.disclaimer a:hover {
     color: #20cba1;
 }
+
+
+
+/* Phone call form */
+.phone-call-form {
+    margin: 0 auto;
+    width: 270px;
+}
+
+.phone-call-form header {
+    background-color: #5d5d7a;
+    border-radius: 6px 6px 0 0;
+    padding: 26px 30px;
+}
+
+/* Modal */
 
 
 
