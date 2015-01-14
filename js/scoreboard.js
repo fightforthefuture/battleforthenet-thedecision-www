@@ -53,25 +53,31 @@ jQuery(function($) {
         if (state) {
             showPlayers(spreadsheetData, true, state);
         } else {
-            $.ajax({
-                url: '//fftf-geocoder.herokuapp.com/',
-                dataType: 'json',
-                type: 'get',
-                success: function(data) {
-                    if (
-                        data.country.iso_code === 'US' &&
-                        data.subdivisions &&
-                        data.subdivisions[0] &&
-                        data.subdivisions[0].names &&
-                        data.subdivisions[0].names.en
-                    ) {
-                        state = data.subdivisions[0].names.en;
-                        $politicalSelect.val(state);
-                    }
+            if (window.global && global.ajaxResponses) {
+                onGeocoderResponse(global.ajaxResponses.geography);
+            } else {
+                $.ajax({
+                    url: '//fftf-geocoder.herokuapp.com/',
+                    dataType: 'json',
+                    type: 'get',
+                    success: onGeocoderResponse
+                });
+            }
+        }
 
-                    showPlayers(spreadsheetData, true, state || false);
-                }
-            });
+        function onGeocoderResponse(data) {
+            if (
+                data.country.iso_code === 'US' &&
+                data.subdivisions &&
+                data.subdivisions[0] &&
+                data.subdivisions[0].names &&
+                data.subdivisions[0].names.en
+            ) {
+                state = data.subdivisions[0].names.en;
+                $politicalSelect.val(state);
+            }
+
+            showPlayers(spreadsheetData, true, state || false);
         }
 
         $politicalSelect.on('change', function() {
