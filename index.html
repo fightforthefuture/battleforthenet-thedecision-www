@@ -320,12 +320,38 @@ function loadJS(src) {
     script.setAttribute('src', src);
     document.body.appendChild(script);
 }
-window.addEventListener('load', function() {
-    innerHeight; // Paint before fetching new assets
-    loadCSS('./css/battle.css');
-    loadJS('./js/battle.js');
-    loadJS('./js/typekit.js');
-});
+
+var IsOldIE = (function(){
+    var undef,
+        v = 3,
+        div = document.createElement('div'),
+        all = div.getElementsByTagName('i');
+
+    while (
+        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+        all[0]
+    );
+
+    return v > 4 ? v : undef;
+
+}());
+
+if (IsOldIE) {
+    alert('Sorry, your web browser if very outdated. Please upgrade to Firefox, Chrome, or another modern browser. You will now be redirected.');
+
+    if (typeof window.event !== 'undefined' && window.event) {
+        window.event.returnValue = false;
+    }
+
+    location.href = 'https://www.mozilla.org/en-US/firefox/new/';
+} else {
+    window.addEventListener('load', function() {
+        innerHeight; // Paint before fetching new assets
+        loadCSS('./css/battle.css');
+        loadJS('./js/battle.js');
+        loadJS('./js/typekit.js');
+    });
+}
 </script>
 </body>
 </html>
