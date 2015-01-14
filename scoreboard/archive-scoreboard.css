@@ -9484,8 +9484,8 @@ section.political select option {
 }
 
 section.political .isotope {
-    margin: 0 auto;
-    padding: 28px 0 0;
+    margin: 28px auto 0;
+    padding: 0;
 }
 
 section.political .isotope.no-transitions .politician {
