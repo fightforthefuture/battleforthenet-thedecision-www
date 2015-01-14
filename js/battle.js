@@ -154,6 +154,10 @@ var Queue = require('./Queue');
                     target: '.modals-target',
                     template: e.target.responseText
                 });
+                $('.modal .close').click(function(e) {
+                    e.preventDefault();
+                    $('.overlay').addClass('invisible');
+                });
             }
         });
 
@@ -545,10 +549,9 @@ PetitionForm.prototype.addEventListeners = function() {
         new AJAX({
             url: url,
             success: function(e) {
+                $('.overlay').removeClass('invisible');
             }
         });
-
-        $('.overlay').removeClass('invisible');
     }, false);
 };
 
