@@ -104,9 +104,9 @@ var Template = require('./Template');
             random_org = null;
             if (loc.indexOf('org=') == -1) {
                 var coin_toss = Math.random();
-                if (coin_toss < .2) {
+                if (coin_toss < .33) {
                     random_org = 'fp';
-                } else if (coin_toss < .6) {
+                } else if (coin_toss < .66) {
                     random_org = 'dp';
                 } else {
                     random_org = 'fftf';
