@@ -106,9 +106,10 @@ PetitionForm.prototype.addEventListeners = function() {
         new AJAX({
             url: url,
             success: function(e) {
-                console.log('Call response:', e.target.responseText);
             }
         });
+
+        $('.overlay').removeClass('invisible');
     }, false);
 };
 

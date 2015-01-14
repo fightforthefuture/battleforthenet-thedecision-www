@@ -45,6 +45,7 @@ var Queue = require('./Queue');
             document.body.className += ' loaded slow ';
         }
     }, 1200);
+
 })();
 
 
@@ -174,7 +175,7 @@ var Queue = require('./Queue');
 })();
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./AJAX":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js","./Countdown":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Countdown.js","./ImagePreloader":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\ImagePreloader.js","./LoadingIcon":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\LoadingIcon.js","./OrganizationRotation":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\OrganizationRotation.js","./PetitionForm":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\PetitionForm.js","./Queue":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Queue.js","./SimpleSection":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\SimpleSection.js"}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js":[function(require,module,exports){
+},{"./AJAX":"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/AJAX.js","./Countdown":"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/Countdown.js","./ImagePreloader":"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/ImagePreloader.js","./LoadingIcon":"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/LoadingIcon.js","./OrganizationRotation":"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/OrganizationRotation.js","./PetitionForm":"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/PetitionForm.js","./Queue":"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/Queue.js","./SimpleSection":"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/SimpleSection.js"}],"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/AJAX.js":[function(require,module,exports){
 function AJAX(params) {
     this.async = params.async || true;
     this.error = params.error;
@@ -270,7 +271,7 @@ AJAX.prototype.serializeForm = function(form) {
 
 module.exports = AJAX;
 
-},{}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Countdown.js":[function(require,module,exports){
+},{}],"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/Countdown.js":[function(require,module,exports){
 function Countdown(params) {
     this.date = params.date;
     this.interval = null;
@@ -372,7 +373,7 @@ Countdown.prototype.updateDates = function(difference) {
 
 module.exports = Countdown;
 
-},{}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\ImagePreloader.js":[function(require,module,exports){
+},{}],"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/ImagePreloader.js":[function(require,module,exports){
 function ImagePreloader(src, callback) {
     this.callback = callback;
     this.src = src;
@@ -388,7 +389,7 @@ ImagePreloader.prototype.onLoad = function(e) {
 
 module.exports = ImagePreloader;
 
-},{}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\LoadingIcon.js":[function(require,module,exports){
+},{}],"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/LoadingIcon.js":[function(require,module,exports){
 var html = '<div class="timer-spinner"><div style="-webkit-transform:rotate(0deg) translate(0,-60px);transform:rotate(0deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(30deg) translate(0,-60px);transform:rotate(30deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(60deg) translate(0,-60px);transform:rotate(60deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(90deg) translate(0,-60px);transform:rotate(90deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(120deg) translate(0,-60px);transform:rotate(120deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(150deg) translate(0,-60px);transform:rotate(150deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(180deg) translate(0,-60px);transform:rotate(180deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(210deg) translate(0,-60px);transform:rotate(210deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(240deg) translate(0,-60px);transform:rotate(240deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(270deg) translate(0,-60px);transform:rotate(270deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(300deg) translate(0,-60px);transform:rotate(300deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(330deg) translate(0,-60px);transform:rotate(330deg) translate(0,-60px);"></div></div>';
 
 function LoadingIcon(params) {
@@ -399,7 +400,7 @@ function LoadingIcon(params) {
 
 module.exports = LoadingIcon;
 
-},{}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\OrganizationRotation.js":[function(require,module,exports){
+},{}],"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/OrganizationRotation.js":[function(require,module,exports){
 function OrganizationRotation() {
     this.addEventListeners();
 }
@@ -435,7 +436,7 @@ OrganizationRotation.prototype.addEventListeners = function() {
 
 module.exports = OrganizationRotation;
 
-},{}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\PetitionForm.js":[function(require,module,exports){
+},{}],"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/PetitionForm.js":[function(require,module,exports){
 var AJAX = require('./AJAX');
 var Template = require('./Template');
 
@@ -544,15 +545,16 @@ PetitionForm.prototype.addEventListeners = function() {
         new AJAX({
             url: url,
             success: function(e) {
-                console.log('Call response:', e.target.responseText);
             }
         });
+
+        $('.overlay').removeClass('invisible');
     }, false);
 };
 
 module.exports = PetitionForm;
 
-},{"./AJAX":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js","./Template":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Template.js"}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Queue.js":[function(require,module,exports){
+},{"./AJAX":"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/AJAX.js","./Template":"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/Template.js"}],"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/Queue.js":[function(require,module,exports){
 function Queue(params) {
     this.callback = params.callback;
     this.context = params.context || this;
@@ -575,7 +577,7 @@ Queue.prototype.destroy = function() {
 
 module.exports = Queue;
 
-},{}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\SimpleSection.js":[function(require,module,exports){
+},{}],"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/SimpleSection.js":[function(require,module,exports){
 var Template = require('./Template');
 
 function SimpleSection(params) {
@@ -593,7 +595,7 @@ SimpleSection.prototype.render = function() {
 
 module.exports = SimpleSection;
 
-},{"./Template":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Template.js"}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Template.js":[function(require,module,exports){
+},{"./Template":"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/Template.js"}],"/home/jeff/Documents/htdocs/battleforthenet-thedecision-www/_src/js/Template.js":[function(require,module,exports){
 // Simple JavaScript Templating
 // John Resig - http://ejohn.org/ - MIT Licensed
 var cache = {};

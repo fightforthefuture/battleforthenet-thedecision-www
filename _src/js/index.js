@@ -43,6 +43,7 @@ var Queue = require('./Queue');
             document.body.className += ' loaded slow ';
         }
     }, 1200);
+
 })();
 
 
