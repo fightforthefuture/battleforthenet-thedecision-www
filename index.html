@@ -312,6 +312,14 @@ header nav a {
 </section>
 
 <script>
+// Dependencies for Political Scoreboard.
+// On desktop browsers, we'll show this on the homepage.
+if (!navigator.userAgent.match(/mobile/i)) {
+    document.write("<script src='js/vendor/jquery.js'><\/script>");
+    document.write("<script src='js/vendor/underscore.js'><\/script>");
+    document.write("<script src='js/vendor/isotope.pkgd.js'><\/script>");
+}
+
 var global = {
     fontsAreReady: false
 };
@@ -361,12 +369,6 @@ if (IsOldIE) {
         loadJS('./js/battle.js');
         loadJS('./js/typekit.js');
     });
-
-    if (!navigator.userAgent.match(/mobile/i)) {
-        document.write("<script src='js/vendor/jquery.js'><\/script>");
-        document.write("<script src='js/vendor/underscore.js'><\/script>");
-        document.write("<script src='js/vendor/isotope.pkgd.js'><\/script>");
-    }
 }
 </script>
 </body>
