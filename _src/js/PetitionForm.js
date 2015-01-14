@@ -2,15 +2,23 @@ var Template = require('./Template');
 
 
 function PetitionForm(params) {
-    this.formSnippet = params.formSnippet
+    // Params
+    this.formTemplate = params.formTemplate
     this.geography = params.geography;
-    this.politicians = params.politicians;
+    this.allPoliticians = params.allPoliticians;
     this.target = params.target;
 
-    var politicians = [];
+    this.DOMNode = document.querySelector(this.target);
+
+    this.selectPoliticians();
+    this.render();
+    this.addEventListeners();
+}
+
+PetitionForm.prototype.selectPoliticians = function() {
     if (this.geography.country.iso_code === 'US') {
         var stateName = this.geography.subdivisions[0].names.en;
-        politicians = this.politicians.filter(function(politician) {
+        this.politicians = this.allPoliticians.filter(function(politician) {
             return (
                 (politician.gsx$state.$t === stateName)
                 &&
@@ -19,23 +27,24 @@ function PetitionForm(params) {
         });
     }
 
-    if (politicians.length === 0) {
-        var teamCable = this.politicians.filter(function(politician) {
+    if (this.politicians.length === 0) {
+        var teamCable = this.allPoliticians.filter(function(politician) {
             return (
                 (politician.gsx$team.$t === 'team-cable')
             )
         });
 
-        politicians = [];
-        politicians[0] = teamCable[Math.floor(Math.random() * teamCable.length) - 1];
-        while (!politicians[1] || politicians[0] === politicians[1]) {
-            politicians[1] = teamCable[Math.floor(Math.random() * teamCable.length) - 1];
+        this.politicians = [];
+        this.politicians[0] = teamCable[Math.floor(Math.random() * teamCable.length) - 1];
+        while (!this.politicians[1] || this.politicians[0] === this.politicians[1]) {
+            this.politicians[1] = teamCable[Math.floor(Math.random() * teamCable.length) - 1];
         }
     }
+};
 
-    var formWrapperNode = document.querySelector(this.target);
-    formWrapperNode.innerHTML = Template(this.formSnippet, {
-        politicians: politicians.map(function(politician) {
+PetitionForm.prototype.render = function() {
+    this.DOMNode.innerHTML = Template(this.formTemplate, {
+        politicians: this.politicians.map(function(politician) {
             var team = politician.gsx$team.$t;
             var stance = 'undecided';
             if (team === 'team-cable') {
@@ -51,7 +60,11 @@ function PetitionForm(params) {
             };
         })
     });
-    formWrapperNode.className = formWrapperNode.className.replace(/loading/, ' ');
-}
+    this.DOMNode.className = this.DOMNode.className.replace(/loading/, ' ');
+};
+
+PetitionForm.prototype.addEventListeners = function() {
+    // TODO: Add events
+};
 
 module.exports = PetitionForm;

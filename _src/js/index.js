@@ -55,9 +55,9 @@ var Queue = require('./Queue');
             pleaseWaitNode.parentNode.removeChild(pleaseWaitNode);
 
             new PetitionForm({
-                formSnippet: ajaxResponses.formSnippet,
+                allPoliticians: ajaxResponses.politicians,
+                formTemplate: ajaxResponses.formTemplate,
                 geography: ajaxResponses.geography,
-                politicians: ajaxResponses.politicians,
                 target: '#battle .form-wrapper'
             });
 
@@ -104,7 +104,7 @@ var Queue = require('./Queue');
     new AJAX({
         url: 'snippets/form.html',
         success: function(e) {
-            ajaxResponses.formSnippet = e.target.responseText;
+            ajaxResponses.formTemplate = e.target.responseText;
             ajaxQueue.tick();
         }
     });
