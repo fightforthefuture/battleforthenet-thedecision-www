@@ -393,6 +393,26 @@ body #battle .phone-call-form footer button:active {
 
 /* Modal */
 
+/* Team Cable */
+#battle section#team-cable {
+    background-color: #1c1c25;
+    border-top: 10px solid #112;
+    font-family: "proxima-nova", sans-serif;
+    margin: 64px 0 0;
+    padding: 16px 25px 64px;
+}
+#battle section#team-cable h2 {
+    font-size: 50px;
+    font-weight: 300;
+}
+#battle section#team-cable p {
+    color: #eee;
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 32px;
+    margin: 36px auto 0;
+    max-width: 768px;
+}
 
 
 

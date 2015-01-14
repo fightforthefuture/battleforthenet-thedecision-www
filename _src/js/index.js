@@ -3,6 +3,7 @@ var Countdown = require('./Countdown');
 var ImagePreloader = require('./ImagePreloader');
 var LoadingIcon = require('./LoadingIcon');
 var OrganizationRotation = require('./OrganizationRotation');
+var TeamCableSection = require('./TeamCableSection');
 var PetitionForm = require('./PetitionForm');
 var Queue = require('./Queue');
 
@@ -61,8 +62,11 @@ var Queue = require('./Queue');
                 target: '#battle .form-wrapper'
             });
 
-            // Add events
+            // Rotate organizations
             new OrganizationRotation();
+
+            // Add more sections
+            loadMoreSections();
         },
         remaining: 3
     });
@@ -108,4 +112,17 @@ var Queue = require('./Queue');
             ajaxQueue.tick();
         }
     });
+
+    function loadMoreSections() {
+        new AJAX({
+            url: 'templates/TeamCableSection.html',
+            success: function(e) {
+                ajaxResponses.teamCableTemplate = e.target.responseText;
+                new TeamCableSection({
+                    target: '.team-cable-target',
+                    template: ajaxResponses.teamCableTemplate
+                });
+            }
+        });
+    }
 })();

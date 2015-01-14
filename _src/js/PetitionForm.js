@@ -4,9 +4,9 @@ var Template = require('./Template');
 
 function PetitionForm(params) {
     // Params
+    this.allPoliticians = params.allPoliticians;
     this.formTemplate = params.formTemplate
     this.geography = params.geography;
-    this.allPoliticians = params.allPoliticians;
     this.target = params.target;
 
     this.DOMNode = document.querySelector(this.target);

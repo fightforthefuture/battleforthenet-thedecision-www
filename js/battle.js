@@ -5,6 +5,7 @@ var Countdown = require('./Countdown');
 var ImagePreloader = require('./ImagePreloader');
 var LoadingIcon = require('./LoadingIcon');
 var OrganizationRotation = require('./OrganizationRotation');
+var TeamCableSection = require('./TeamCableSection');
 var PetitionForm = require('./PetitionForm');
 var Queue = require('./Queue');
 
@@ -63,8 +64,11 @@ var Queue = require('./Queue');
                 target: '#battle .form-wrapper'
             });
 
-            // Add events
+            // Rotate organizations
             new OrganizationRotation();
+
+            // Add more sections
+            loadMoreSections();
         },
         remaining: 3
     });
@@ -110,10 +114,23 @@ var Queue = require('./Queue');
             ajaxQueue.tick();
         }
     });
+
+    function loadMoreSections() {
+        new AJAX({
+            url: 'templates/TeamCableSection.html',
+            success: function(e) {
+                ajaxResponses.teamCableTemplate = e.target.responseText;
+                new TeamCableSection({
+                    target: '.team-cable-target',
+                    template: ajaxResponses.teamCableTemplate
+                });
+            }
+        });
+    }
 })();
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./AJAX":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js","./Countdown":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Countdown.js","./ImagePreloader":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\ImagePreloader.js","./LoadingIcon":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\LoadingIcon.js","./OrganizationRotation":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\OrganizationRotation.js","./PetitionForm":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\PetitionForm.js","./Queue":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Queue.js"}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js":[function(require,module,exports){
+},{"./AJAX":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js","./Countdown":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Countdown.js","./ImagePreloader":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\ImagePreloader.js","./LoadingIcon":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\LoadingIcon.js","./OrganizationRotation":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\OrganizationRotation.js","./PetitionForm":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\PetitionForm.js","./Queue":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Queue.js","./TeamCableSection":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\TeamCableSection.js"}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js":[function(require,module,exports){
 function AJAX(params) {
     this.async = params.async || true;
     this.error = params.error;
@@ -381,9 +398,9 @@ var Template = require('./Template');
 
 function PetitionForm(params) {
     // Params
+    this.allPoliticians = params.allPoliticians;
     this.formTemplate = params.formTemplate
     this.geography = params.geography;
-    this.allPoliticians = params.allPoliticians;
     this.target = params.target;
 
     this.DOMNode = document.querySelector(this.target);
@@ -514,7 +531,25 @@ Queue.prototype.destroy = function() {
 
 module.exports = Queue;
 
-},{}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Template.js":[function(require,module,exports){
+},{}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\TeamCableSection.js":[function(require,module,exports){
+var Template = require('./Template');
+
+function TeamCableSection(params) {
+    this.target = params.target;
+    this.template = params.template;
+
+    this.DOMNode = document.querySelector(this.target);
+
+    this.render();
+}
+
+TeamCableSection.prototype.render = function() {
+    this.DOMNode.innerHTML = Template(this.template, {});
+};
+
+module.exports = TeamCableSection;
+
+},{"./Template":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Template.js"}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Template.js":[function(require,module,exports){
 // Simple JavaScript Templating
 // John Resig - http://ejohn.org/ - MIT Licensed
 var cache = {};
