@@ -120,6 +120,7 @@ body.typekit #battle .timer .card .type {
 
 /* Politicians */
 body #battle .form-wrapper .politician {
+    display: inline-block;
     height: 150px;
     margin: 0 0 12px;
     position: relative;
@@ -167,6 +168,7 @@ body #battle .form-wrapper .politician.team-internet p.stance {
 }
 
 body #battle .form-wrapper .politician img {
+    border-radius: 5px;
     display: block;
     opacity: 0;
     width: 115px;
@@ -175,21 +177,16 @@ body #battle .form-wrapper .politician img {
             transition: opacity 0.3s;
 }
 
-body #battle .form-wrapper .politician:first-child img {
+/*body #battle .form-wrapper .politician:first-child img {
     border-radius: 5px 0 0 5px;
 }
 
 body #battle .form-wrapper .politician:last-child img {
     border-radius: 0 5px 5px 0;
-}
+}*/
 
 @media screen and (min-width: 460px) {
     body #battle .form-wrapper .politician {
-        display: inline-block;
-    }
-
-    body #battle .form-wrapper .politician img {
-        border-radius: 5px !important;
     }
 }
 
