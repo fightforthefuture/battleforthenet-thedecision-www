@@ -3,7 +3,7 @@ var Countdown = require('./Countdown');
 var ImagePreloader = require('./ImagePreloader');
 var LoadingIcon = require('./LoadingIcon');
 var OrganizationRotation = require('./OrganizationRotation');
-var TeamCableSection = require('./TeamCableSection');
+var SimpleSection = require('./SimpleSection');
 var PetitionForm = require('./PetitionForm');
 var Queue = require('./Queue');
 
@@ -117,10 +117,9 @@ var Queue = require('./Queue');
         new AJAX({
             url: 'templates/TeamCableSection.html',
             success: function(e) {
-                ajaxResponses.teamCableTemplate = e.target.responseText;
-                new TeamCableSection({
+                new SimpleSection({
                     target: '.team-cable-target',
-                    template: ajaxResponses.teamCableTemplate
+                    template: e.target.responseText
                 });
             }
         });
@@ -128,10 +127,19 @@ var Queue = require('./Queue');
         new AJAX({
             url: 'templates/TeamInternetSection.html',
             success: function(e) {
-                ajaxResponses.teamCableTemplate = e.target.responseText;
-                new TeamCableSection({
+                new SimpleSection({
                     target: '.team-internet-target',
-                    template: ajaxResponses.teamCableTemplate
+                    template: e.target.responseText
+                });
+            }
+        });
+
+        new AJAX({
+            url: 'templates/Footer.html',
+            success: function(e) {
+                new SimpleSection({
+                    target: '.footer-target',
+                    template: e.target.responseText
                 });
             }
         });

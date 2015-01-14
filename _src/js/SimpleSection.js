@@ -1,6 +1,6 @@
 var Template = require('./Template');
 
-function TeamCableSection(params) {
+function SimpleSection(params) {
     this.target = params.target;
     this.template = params.template;
 
@@ -9,8 +9,8 @@ function TeamCableSection(params) {
     this.render();
 }
 
-TeamCableSection.prototype.render = function() {
+SimpleSection.prototype.render = function() {
     this.DOMNode.innerHTML = Template(this.template, {});
 };
 
-module.exports = TeamCableSection;
+module.exports = SimpleSection;
