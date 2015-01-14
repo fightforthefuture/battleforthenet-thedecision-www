@@ -144,6 +144,16 @@ var Queue = require('./Queue');
             }
         });
 
+        new AJAX({
+            url: 'templates/Modals.html',
+            success: function(e) {
+                new SimpleSection({
+                    target: '.modals-target',
+                    template: e.target.responseText
+                });
+            }
+        });
+
         if (!navigator.userAgent.match(/mobile/i)) {
             new AJAX({
                 url: 'templates/PoliticalScoreboardSection.html',
