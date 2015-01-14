@@ -104,7 +104,7 @@ var Queue = require('./Queue');
     });
 
     new AJAX({
-        url: 'snippets/form.html',
+        url: 'templates/PetitionForm.html',
         success: function(e) {
             ajaxResponses.formTemplate = e.target.responseText;
             ajaxQueue.tick();
@@ -369,7 +369,9 @@ PetitionForm.prototype.render = function() {
 };
 
 PetitionForm.prototype.addEventListeners = function() {
-    // TODO: Add events
+    this.DOMNode.querySelector('#petition').addEventListener('submit', function(e) {
+        e.preventDefault();
+    }, false);
 };
 
 module.exports = PetitionForm;

@@ -102,7 +102,7 @@ var Queue = require('./Queue');
     });
 
     new AJAX({
-        url: 'snippets/form.html',
+        url: 'templates/PetitionForm.html',
         success: function(e) {
             ajaxResponses.formTemplate = e.target.responseText;
             ajaxQueue.tick();

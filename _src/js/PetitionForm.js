@@ -64,7 +64,9 @@ PetitionForm.prototype.render = function() {
 };
 
 PetitionForm.prototype.addEventListeners = function() {
-    // TODO: Add events
+    this.DOMNode.querySelector('#petition').addEventListener('submit', function(e) {
+        e.preventDefault();
+    }, false);
 };
 
 module.exports = PetitionForm;
