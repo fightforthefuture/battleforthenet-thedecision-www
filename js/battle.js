@@ -4,8 +4,10 @@ var AJAX = require('./AJAX');
 var Countdown = require('./Countdown');
 var ImagePreloader = require('./ImagePreloader');
 var LoadingIcon = require('./LoadingIcon');
+var OrganizationRotation = require('./OrganizationRotation');
+var SimpleSection = require('./SimpleSection');
+var PetitionForm = require('./PetitionForm');
 var Queue = require('./Queue');
-var Template = require('./Template');
 
 
 
@@ -49,119 +51,126 @@ var Template = require('./Template');
 
 // Load geography & politicians JSON
 (function() {
-    var ajaxResponses = {};
+    global.ajaxResponses = {};
     var ajaxQueue = new Queue({
         callback: function() {
             var pleaseWaitNode = document.querySelector('#battle .please-wait');
             pleaseWaitNode.parentNode.removeChild(pleaseWaitNode);
 
-            var politicians = [];
-            if (ajaxResponses.geography.country.iso_code === 'US') {
-                var stateName = ajaxResponses.geography.subdivisions[0].names.en;
-                politicians = ajaxResponses.politicians.filter(function(politician) {
-                    return (
-                        (politician.gsx$state.$t === stateName)
-                        &&
-                        (politician.gsx$organization.$t === 'Senate')
-                    );
-                });
-            }
-
-            if (politicians.length === 0) {
-                var teamCable = ajaxResponses.politicians.filter(function(politician) {
-                    return (
-                        (politician.gsx$team.$t === 'team-cable')
-                    );
-                });
-
-                politicians = [];
-                politicians[0] = teamCable[Math.floor(Math.random() * teamCable.length) - 1];
-                while (!politicians[1] || politicians[0] === politicians[1]) {
-                    politicians[1] = teamCable[Math.floor(Math.random() * teamCable.length) - 1];
-                }
-            }
-
-            var formWrapperNode = document.querySelector('#battle .form-wrapper');
-            formWrapperNode.innerHTML = Template(ajaxResponses.formSnippet, {
-                politicians: politicians.map(function(politician) {
-                    var team = politician.gsx$team.$t;
-                    var stance = 'undecided';
-                    if (team === 'team-cable') {
-                        stance = 'anti internet';
-                    } else if (team === 'team-internet') {
-                        stance = 'pro internet';
-                    }
-                    return {
-                        image: 'images/scoreboard/' + politician.gsx$imagepleasedontedit.$t,
-                        name: politician.gsx$name.$t,
-                        stance: stance,
-                        team: team
-                    }
-                })
+            new PetitionForm({
+                allPoliticians: global.ajaxResponses.politicians,
+                formTemplate: global.ajaxResponses.formTemplate,
+                geography: global.ajaxResponses.geography,
+                target: '#battle .form-wrapper'
             });
-            formWrapperNode.className = formWrapperNode.className.replace(/loading/, ' ');
 
-            // Randomize disclaimer
-            var loc = window.location.href;
-            random_org = null;
-            if (loc.indexOf('org=') == -1) {
-                var coin_toss = Math.random();
-                if (coin_toss < .33) {
-                    random_org = 'fp';
-                } else if (coin_toss < .66) {
-                    random_org = 'dp';
-                } else {
-                    random_org = 'fftf';
-                }
-            }
-            if (loc.indexOf('org=fp') != -1 || random_org == 'fp') {
-                document.getElementById('org').value = 'fp';
-                document.getElementById('randomize_disclosure').style.display = 'none';
-                document.getElementById('fp_disclosure').style.display = 'block';
-            } else if (loc.indexOf('org=dp') != -1 || random_org == 'dp') {
-                document.getElementById('org').value = 'dp';
-                document.getElementById('randomize_disclosure').style.display = 'none';
-                document.getElementById('dp_disclosure').style.display = 'block';
-            } else if (loc.indexOf('org=fftf') != -1 || random_org == 'fftf') {
-                document.getElementById('org').value = 'fftf';
-                document.getElementById('randomize_disclosure').style.display = 'none';
-                document.getElementById('fftf_disclosure').style.display = 'block';
-            }
+            // Rotate organizations
+            new OrganizationRotation();
+
+            // Add more sections
+            loadMoreSections();
         },
         remaining: 3
     });
+
+    var LiveURLs = {
+        geography: 'https://fftf-geocoder.herokuapp.com',
+        politicians: 'https://spreadsheets.google.com/feeds/list/12g70eNkGA2hhRYKSENaeGxsgGyFukLRMHCqrLizdhlw/default/public/values?alt=json'
+    };
+    var DebugURLs = {
+        geography: 'debug/geography.json',
+        politicians: 'debug/politicians.json'
+    };
+
+    var URLs;
+    if (location.href.match(/localhost/)) {
+        URLs = DebugURLs;
+    } else {
+        URLs = LiveURLs;
+    }
+
     new AJAX({
-        url: 'https://fftf-geocoder.herokuapp.com',
+        url: URLs.geography,
         success: function(e) {
             var json = JSON.parse(e.target.responseText);
-            ajaxResponses.geography = json;
+            global.ajaxResponses.geography = json;
             ajaxQueue.tick();
         }
     });
+
     new AJAX({
-        url: 'https://spreadsheets.google.com/feeds/list/1-hBOL7oNJXWvUdhK0veiybSXaYFUZu1aNUuRyNeaUmg/default/public/values?alt=json',
+        url: URLs.politicians,
         success: function(e) {
             var json = JSON.parse(e.target.responseText);
-            ajaxResponses.politicians = json.feed.entry;
+            global.ajaxResponses.politicians = json.feed.entry;
             ajaxQueue.tick();
         }
     });
+
     new AJAX({
-        url: 'snippets/form.html',
+        url: 'templates/PetitionForm.html',
         success: function(e) {
-            ajaxResponses.formSnippet = e.target.responseText;
+            global.ajaxResponses.formTemplate = e.target.responseText;
             ajaxQueue.tick();
         }
     });
+
+    function loadMoreSections() {
+        new AJAX({
+            url: 'templates/TeamCableSection.html',
+            success: function(e) {
+                new SimpleSection({
+                    target: '.team-cable-target',
+                    template: e.target.responseText
+                });
+            }
+        });
+
+        new AJAX({
+            url: 'templates/TeamInternetSection.html',
+            success: function(e) {
+                new SimpleSection({
+                    target: '.team-internet-target',
+                    template: e.target.responseText
+                });
+            }
+        });
+
+        new AJAX({
+            url: 'templates/Footer.html',
+            success: function(e) {
+                new SimpleSection({
+                    target: '.footer-target',
+                    template: e.target.responseText
+                });
+            }
+        });
+
+        if (!navigator.userAgent.match(/mobile/i)) {
+            new AJAX({
+                url: 'templates/PoliticalScoreboardSection.html',
+                success: function(e) {
+                    new SimpleSection({
+                        target: '.scoreboard-target',
+                        template: e.target.responseText
+                    });
+
+                    loadCSS('scoreboard/scoreboard.css');
+                    loadJS('js/scoreboard.js', true);
+                }
+            });
+        }
+    }
 })();
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./AJAX":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js","./Countdown":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Countdown.js","./ImagePreloader":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\ImagePreloader.js","./LoadingIcon":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\LoadingIcon.js","./Queue":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Queue.js","./Template":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Template.js"}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js":[function(require,module,exports){
+},{"./AJAX":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js","./Countdown":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Countdown.js","./ImagePreloader":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\ImagePreloader.js","./LoadingIcon":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\LoadingIcon.js","./OrganizationRotation":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\OrganizationRotation.js","./PetitionForm":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\PetitionForm.js","./Queue":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Queue.js","./SimpleSection":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\SimpleSection.js"}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js":[function(require,module,exports){
 function AJAX(params) {
     this.async = params.async || true;
     this.error = params.error;
     this.method = params.method || 'GET';
     this.success = params.success;
+    this.form = params.form;
     this.url = params.url;
 
     this.request = new XMLHttpRequest();
@@ -175,7 +184,78 @@ function AJAX(params) {
         this.request.onerror = this.error;
     }
 
-    this.request.send();
+    if (this.form) {
+        var params = this.serializeForm(this.form);
+        this.request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        this.request.send(params);
+    } else {
+        this.request.send();
+    }
+
+}
+
+AJAX.prototype.serializeForm = function(form) {
+    if (!form || form.nodeName !== "FORM") {
+        return;
+    }
+
+    var i, j, q = [];
+    for (i = form.elements.length - 1; i >= 0; i = i - 1) {
+        if (form.elements[i].name === "") {
+            continue;
+        }
+        switch (form.elements[i].nodeName) {
+        case 'INPUT':
+            switch (form.elements[i].type) {
+            case 'text':
+            case 'hidden':
+            case 'password':
+            case 'button':
+            case 'reset':
+            case 'submit':
+                q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+                break;
+            case 'checkbox':
+            case 'radio':
+                if (form.elements[i].checked) {
+                    q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+                }
+                break;
+            case 'file':
+                break;
+            }
+            break;
+        case 'TEXTAREA':
+            q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+            break;
+        case 'SELECT':
+            switch (form.elements[i].type) {
+            case 'select-one':
+                q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+                break;
+            case 'select-multiple':
+                for (j = form.elements[i].options.length - 1; j >= 0; j = j - 1) {
+                    if (form.elements[i].options[j].selected) {
+                        q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].options[j].value));
+                    }
+                }
+                break;
+            }
+            break;
+        case 'BUTTON':
+            switch (form.elements[i].type) {
+            case 'reset':
+            case 'submit':
+            case 'button':
+                q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+                break;
+            }
+            break;
+        }
+    }
+
+    return q.join("&");
 }
 
 module.exports = AJAX;
@@ -240,7 +320,7 @@ Countdown.prototype.stop = function() {
 };
 
 Countdown.prototype.showIntro = function() {
-    this.targets.timer.classList.add('loaded');
+    this.targets.timer.className += ' loaded ';
     this.introWasShown = true;
 };
 
@@ -302,12 +382,167 @@ module.exports = ImagePreloader;
 var html = '<div class="timer-spinner"><div style="-webkit-transform:rotate(0deg) translate(0,-60px);transform:rotate(0deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(30deg) translate(0,-60px);transform:rotate(30deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(60deg) translate(0,-60px);transform:rotate(60deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(90deg) translate(0,-60px);transform:rotate(90deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(120deg) translate(0,-60px);transform:rotate(120deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(150deg) translate(0,-60px);transform:rotate(150deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(180deg) translate(0,-60px);transform:rotate(180deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(210deg) translate(0,-60px);transform:rotate(210deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(240deg) translate(0,-60px);transform:rotate(240deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(270deg) translate(0,-60px);transform:rotate(270deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(300deg) translate(0,-60px);transform:rotate(300deg) translate(0,-60px);"></div><div style="-webkit-transform:rotate(330deg) translate(0,-60px);transform:rotate(330deg) translate(0,-60px);"></div></div>';
 
 function LoadingIcon(params) {
-    document.querySelector(params.target).innerHTML = html;
+    var target = document.querySelector(params.target);
+    target.innerHTML = html;
+    target.className += ' fadeIn';
 }
 
 module.exports = LoadingIcon;
 
-},{}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Queue.js":[function(require,module,exports){
+},{}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\OrganizationRotation.js":[function(require,module,exports){
+function OrganizationRotation() {
+    this.addEventListeners();
+}
+
+OrganizationRotation.prototype.addEventListeners = function() {
+    var loc = window.location.href;
+    random_org = null;
+    if (loc.indexOf('org=') == -1) {
+        var coin_toss = Math.random();
+        if (coin_toss < .33) {
+            random_org = 'fp';
+        } else if (coin_toss < .66) {
+            random_org = 'dp';
+        } else {
+            random_org = 'fftf';
+        }
+    }
+
+    if (loc.indexOf('org=fp') != -1 || random_org == 'fp') {
+        document.getElementById('org').value = 'fp';
+        document.getElementById('randomize_disclosure').style.display = 'none';
+        document.getElementById('fp_disclosure').style.display = 'block';
+    } else if (loc.indexOf('org=dp') != -1 || random_org == 'dp') {
+        document.getElementById('org').value = 'dp';
+        document.getElementById('randomize_disclosure').style.display = 'none';
+        document.getElementById('dp_disclosure').style.display = 'block';
+    } else if (loc.indexOf('org=fftf') != -1 || random_org == 'fftf') {
+        document.getElementById('org').value = 'fftf';
+        document.getElementById('randomize_disclosure').style.display = 'none';
+        document.getElementById('fftf_disclosure').style.display = 'block';
+    }
+};
+
+module.exports = OrganizationRotation;
+
+},{}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\PetitionForm.js":[function(require,module,exports){
+var AJAX = require('./AJAX');
+var Template = require('./Template');
+
+
+function PetitionForm(params) {
+    // Params
+    this.allPoliticians = params.allPoliticians;
+    this.formTemplate = params.formTemplate
+    this.geography = params.geography;
+    this.target = params.target;
+
+    this.DOMNode = document.querySelector(this.target);
+
+    this.selectPoliticians();
+    this.render();
+    this.addEventListeners();
+}
+
+PetitionForm.prototype.selectPoliticians = function() {
+    if (this.geography.country.iso_code === 'US') {
+        var stateName = this.geography.subdivisions[0].names.en;
+        this.politicians = this.allPoliticians.filter(function(politician) {
+            return (
+                (politician.gsx$state.$t === stateName)
+                &&
+                (politician.gsx$organization.$t === 'Senate')
+            );
+        });
+    }
+
+    if (this.politicians.length === 0) {
+        var teamCable = this.allPoliticians.filter(function(politician) {
+            return (
+                (politician.gsx$team.$t === 'team-cable')
+            )
+        });
+
+        this.politicians = [];
+        this.politicians[0] = teamCable[Math.floor(Math.random() * teamCable.length) - 1];
+        while (!this.politicians[1] || this.politicians[0] === this.politicians[1]) {
+            this.politicians[1] = teamCable[Math.floor(Math.random() * teamCable.length) - 1];
+        }
+    }
+};
+
+PetitionForm.prototype.render = function() {
+    this.DOMNode.innerHTML = Template(this.formTemplate, {
+        politicians: this.politicians.map(function(politician) {
+            var team = politician.gsx$team.$t;
+            var stance = 'undecided';
+            if (team === 'team-cable') {
+                stance = 'anti internet';
+            } else if (team === 'team-internet') {
+                stance = 'pro internet';
+            }
+            return {
+                image: 'images/scoreboard/' + politician.gsx$imagepleasedontedit.$t,
+                name: politician.gsx$name.$t,
+                stance: stance,
+                team: team
+            };
+        })
+    });
+    this.DOMNode.className = this.DOMNode.className.replace(/loading/, ' ');
+};
+
+PetitionForm.prototype.addEventListeners = function() {
+    var petitionFormNode = this.DOMNode.querySelector('#petition');
+    var phoneCallFormNode = this.DOMNode.querySelector('#phone-call-form');
+    var politiciansNode = this.DOMNode.querySelector('.politicians');
+
+    petitionFormNode.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        petitionFormNode.style.display = 'none';
+        politiciansNode.style.display = 'none';
+
+        phoneCallFormNode.style.display = 'block';
+
+        var url = petitionFormNode.getAttribute('action');
+        new AJAX({
+            url: url,
+            method: 'POST',
+            form: petitionFormNode,
+            success: function(e) {
+                var json = JSON.parse(e.target.responseText);
+                console.log('Petition response:', json);
+            }
+        });
+
+    }, false);
+
+    phoneCallFormNode.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var campaignId = 'jan14th';
+        var phoneNumber = phoneCallFormNode.querySelector('#phone').value;
+        var postalCode = petitionFormNode.querySelector('#zip');
+
+        var url =
+            'https://call-congress.fightforthefuture.org/create?' +
+            'campaignId=' + campaignId + '&' +
+            'userPhone=' + phoneNumber + '&' +
+            'zipcode=' + postalCode;
+
+        new AJAX({
+            url: url,
+            success: function(e) {
+                console.log('Call response:', e.target.responseText);
+            }
+        });
+    }, false);
+};
+
+module.exports = PetitionForm;
+
+},{"./AJAX":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js","./Template":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Template.js"}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Queue.js":[function(require,module,exports){
 function Queue(params) {
     this.callback = params.callback;
     this.context = params.context || this;
@@ -330,7 +565,25 @@ Queue.prototype.destroy = function() {
 
 module.exports = Queue;
 
-},{}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Template.js":[function(require,module,exports){
+},{}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\SimpleSection.js":[function(require,module,exports){
+var Template = require('./Template');
+
+function SimpleSection(params) {
+    this.target = params.target;
+    this.template = params.template;
+
+    this.DOMNode = document.querySelector(this.target);
+
+    this.render();
+}
+
+SimpleSection.prototype.render = function() {
+    this.DOMNode.innerHTML = Template(this.template, {});
+};
+
+module.exports = SimpleSection;
+
+},{"./Template":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Template.js"}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Template.js":[function(require,module,exports){
 // Simple JavaScript Templating
 // John Resig - http://ejohn.org/ - MIT Licensed
 var cache = {};

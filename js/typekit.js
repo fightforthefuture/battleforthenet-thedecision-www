@@ -63,12 +63,10 @@ Typekit.load({
             return;
         }
 
-        console.log('Active...');
         global.fontsAreReady = true;
         document.body.className += ' typekit loaded ';
     },
     inactive: function(e) {
         // JavaScript to execute when fonts become inactive
-        console.log('Inactive...');
     }
 });

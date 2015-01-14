@@ -39,33 +39,45 @@ jQuery(function($) {
         $politicalSelect.val(state);
     }
 
-    $.getJSON(spreadsheetUrl, function(response) {
+    if (window.global && global.ajaxResponses) {
+        onPoliticiansAvailable(global.ajaxResponses.politicians);
+    } else {
+        $.getJSON(spreadsheetUrl, function(response) {
+            onPoliticiansAvailable(response.feed.entry);
+        });
+    }
 
-        spreadsheetData = response.feed.entry;
+    function onPoliticiansAvailable(spreadsheetData) {
         // Parse & sort by weight
 
         if (state) {
             showPlayers(spreadsheetData, true, state);
         } else {
-            $.ajax({
-                url: '//fftf-geocoder.herokuapp.com/',
-                dataType: 'json',
-                type: 'get',
-                success: function(data) {
-                    if (
-                        data.country.iso_code === 'US' &&
-                        data.subdivisions &&
-                        data.subdivisions[0] &&
-                        data.subdivisions[0].names &&
-                        data.subdivisions[0].names.en
-                    ) {
-                        state = data.subdivisions[0].names.en;
-                        $politicalSelect.val(state);
-                    }
+            if (window.global && global.ajaxResponses) {
+                onGeocoderResponse(global.ajaxResponses.geography);
+            } else {
+                $.ajax({
+                    url: '//fftf-geocoder.herokuapp.com/',
+                    dataType: 'json',
+                    type: 'get',
+                    success: onGeocoderResponse
+                });
+            }
+        }
 
-                    showPlayers(spreadsheetData, true, state || false);
-                }
-            });
+        function onGeocoderResponse(data) {
+            if (
+                data.country.iso_code === 'US' &&
+                data.subdivisions &&
+                data.subdivisions[0] &&
+                data.subdivisions[0].names &&
+                data.subdivisions[0].names.en
+            ) {
+                state = data.subdivisions[0].names.en;
+                $politicalSelect.val(state);
+            }
+
+            showPlayers(spreadsheetData, true, state || false);
         }
 
         $politicalSelect.on('change', function() {
@@ -96,7 +108,7 @@ jQuery(function($) {
                 }
             });
         });
-    });
+    }
 
     function showPlayers(data, showGeneral, state) {
         $isotope.html('');
@@ -163,7 +175,7 @@ jQuery(function($) {
             if (player.team == 'team-internet')
                 subdomain += '.savesthe.net';
             else
-                subdomain += 'breaksthe.net';
+                subdomain += '.breaksthe.net';
 
             if (player.twitter) {
                 var shareText;
@@ -200,7 +212,9 @@ jQuery(function($) {
         regenerateWeights(players);
 
         // Mark body as loaded.
-        document.body.className = 'loaded';
+        if (location.href.match(/\/scoreboard\//)) {
+            document.body.className = 'loaded';
+        }
 
         // Initialize isotope.
         $isotope.isotope({
@@ -311,7 +325,7 @@ jQuery(function($) {
             if (player)
             {
 
-            
+
                 player.weightGenerated = weight--;
 
                 player.positioned = true;

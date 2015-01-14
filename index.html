@@ -8,20 +8,19 @@
 <title>Join the Battle for Net Neutrality</title>
 <meta name="description" content="These could be the final days of the open web or the first days of the rebellion that saves it. Join the nationwide protest to save the Internet on November 13th">
 <meta name="author" content="Fight for the Future">
-<meta property="og:title" content="This is why your Internet is slow. And it’ll get worse. Unless you take 1 min to do this, now."/>
+<meta property="og:title" content="In days, the most important FCC decision of our lifetime happens -- save net neutrality or lose it forever..."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://www.battleforthenet.com"/>
 <meta property="og:image" content="https://www.battleforthenet.com/images/cruz_moron_2.png"/>
 <meta property="og:site_name" content="Battle For The Net"/>
-<meta property="og:description" content="Net neutrality is not a partisan issue. But Comcast sure wants to make it one. Tell Congress: don't be idiots."/>
-
+<meta property="og:description" content="but these people are trying to kill net neutrality right now on behalf of Cable. Can you help change history?"/>
 <meta itemprop="name" content="Battle For The Net">
 <meta itemprop="description" content="You're our only hope.">
-<meta itemprop="image" content="https://www.battleforthenet.com/images/share_images/protest.png">
-<meta name="twitter:vard" content="photo"/>
+<meta itemprop="image" content="https://www.battleforthenet.com/images/share/facebook.jpg">
+<meta name="twitter:card" content="photo"/>
 <meta name="twitter:site" content="@FightForTheFtr"/>
 <meta name="twitter:title" content="Battle for the Net"/>
-<meta name="twitter:description" content="Net neutrality is not a partisan issue. But Comcast sure wants to make it one. Tell Congress: don't be idiots."/>
+<meta name="twitter:description" content="As historic FCC vote on #netneutrality draws near, Congress is working to kill it. Change history: battleforthenet.com"/>
 <meta name="twitter:image" content="https://www.battleforthenet.com/images/cruz_moron.png"/>
 <meta name="twitter:url" content="https://www.battleforthenet.com/#protest"/>
 <style>
@@ -112,14 +111,13 @@ a {
 }
 
 #battle .spinner {
-    height: 120px;
-    margin: 0 auto;
+    height: 100px;
+    margin: -50px auto 0;
     overflow: hidden;
     width: 200px;
 }
 
 #battle .timer {
-    margin-top: -50px;
     position: relative;
 }
 
@@ -134,10 +132,11 @@ a {
 }
 
 #battle .timer .card {
+    border-radius: 8px;
+    background-color: rgba(93, 93, 122, 0.2);
     display: inline-block;
     height: 85px;
     margin-bottom: 4px;
-    opacity: 0;
     padding: 0 4px;
     position: relative;
     width: 80px;
@@ -145,27 +144,17 @@ a {
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
+}
+
+#battle .timer .card > div {
+    opacity: 0;
 
     -webkit-transition: opacity 0.8s;
             transition: opacity 0.8s;
 }
 
-.delay-1s {
-    -webkit-animation-delay: 1s;
-            animation-delay: 1s;
-}
-
-.delay-2s {
-    -webkit-animation-delay: 2s;
-            animation-delay: 2s;
-}
-
 .light {
     font-weight: 300;
-}
-
-.regular {
-    font-weight: 400;
 }
 
 .bold {
@@ -223,21 +212,10 @@ header nav {
 }
 
 header nav a {
-    color: #94949d;
-    display: inline-block;
-    font-size: 14px;
-    line-height: 66px;
     opacity: 0;
-    padding: 0 12px;
-    text-transform: uppercase;
 
     -webkit-transition: opacity 1s 0.3s;
             transition: opacity 1s 0.3s;
-}
-
-header nav a:active,
-header nav a:hover {
-    color: #2dbb9b;
 }
 
 @media screen and (min-width: 460px) {
@@ -261,10 +239,10 @@ header nav a:hover {
 
 <header class="desktop">
     <nav class="tk-proxima-nova bold">
-        <a href="#home">home</a>
-        <a href="#what-to-do">what to do</a>
+        <a href="#" class="highlighted">home</a>
         <a href="#team-cable">team cable</a>
         <a href="#team-internet">team internet</a>
+        <a href="scoreboard/">scoreboard</a>
     </nav>
 </header>
 
@@ -318,7 +296,7 @@ header nav a:hover {
     </h1>
 
     <p class="padded-900 tk-proxima-nova light">
-        Comcast wants to end net neutrality so it can push slow lanes on the Internet. On 2/26, the FCC will vote on handing the Internet over to Comcast or saving net neutrality. Their decision hinges on what they hear from Congress, companies, and us. We've spoken up, so now these are the most important people we need to make sure speak up for net neutrality:
+        On Feb 26 the FCC will vote to save net neutrality or let Comcast and other ISPs create Internet slow lanes. Some members of Congress, on behalf of their Cable donors, are trying to stop the FCC from protecting the Internet we love. There isn't much time to stop them, contact them now.
     </p>
 
     <p class="please-wait padded-900 pulse">
@@ -326,6 +304,11 @@ header nav a:hover {
     </p>
 
     <p class="form-wrapper loading padded-900 tk-proxima-nova"></p>
+
+    <div class="team-cable-target"></div>
+    <div class="team-internet-target"></div>
+    <div class="scoreboard-target"></div>
+    <div class="footer-target"></div>
 </section>
 
 <script>
@@ -339,17 +322,52 @@ function loadCSS(href) {
     link.setAttribute('rel', 'stylesheet');
     document.head.appendChild(link);
 }
-function loadJS(src) {
+function loadJS(src, blocking) {
     var script = document.createElement('script');
     script.setAttribute('src', src);
+    if (blocking) {
+        script.setAttribute('async', false);
+    }
     document.body.appendChild(script);
 }
-window.addEventListener('load', function() {
-    innerHeight; // Paint before fetching new assets
-    loadCSS('./css/battle.css');
-    loadJS('./js/battle.js');
-    loadJS('./js/typekit.js');
-});
+
+var IsOldIE = (function(){
+    var undef,
+        v = 3,
+        div = document.createElement('div'),
+        all = div.getElementsByTagName('i');
+
+    while (
+        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+        all[0]
+    );
+
+    return v > 4 ? v : undef;
+
+}());
+
+if (IsOldIE) {
+    alert('Sorry, your web browser if very outdated. Please upgrade to Firefox, Chrome, or another modern browser. You will now be redirected.');
+
+    if (typeof window.event !== 'undefined' && window.event) {
+        window.event.returnValue = false;
+    }
+
+    location.href = 'https://www.mozilla.org/en-US/firefox/new/';
+} else {
+    window.addEventListener('load', function() {
+        innerHeight; // Paint before fetching new assets
+        loadCSS('./css/battle.css');
+        loadJS('./js/battle.js');
+        loadJS('./js/typekit.js');
+    });
+
+    if (!navigator.userAgent.match(/mobile/i)) {
+        document.write("<script src='js/vendor/jquery.js'><\/script>");
+        document.write("<script src='js/vendor/underscore.js'><\/script>");
+        document.write("<script src='js/vendor/isotope.pkgd.js'><\/script>");
+    }
+}
 </script>
 </body>
 </html>
