@@ -303,26 +303,30 @@ body #battle p.disclaimer a:hover {
 /* Spinner */
 @-webkit-keyframes timer-spinner {
     0% {
-        opacity: 1
+        -webkit-transform: rotate(0deg) scale(0.6);
+                transform: rotate(0deg) scale(0.6);
     }
     100% {
-        opacity: 0
+        -webkit-transform: rotate(360deg) scale(0.6);
+                transform: rotate(360deg) scale(0.6);
     }
 }
 @keyframes timer-spinner {
     0% {
-        opacity: 1
+        -webkit-transform: rotate(0deg) scale(0.6);
+                transform: rotate(0deg) scale(0.6);
     }
     100% {
-        opacity: 0
+        -webkit-transform: rotate(360deg) scale(0.6);
+                transform: rotate(360deg) scale(0.6);
     }
 }
 .timer-spinner {
-    height: 110px;
+    height: 200px;
     margin: 0 auto;
-    opacity: 0.5;
-    overflow: hidden;
     width: 200px;
+    -webkit-animation: timer-spinner 3s infinite linear;
+            animation: timer-spinner 3s infinite linear;
 
     -webkit-transform: scale(0.6);
             transform: scale(0.6);
@@ -337,74 +341,52 @@ body #battle p.disclaimer a:hover {
     width: 12px;
 }
 .timer-spinner > div:nth-of-type(1) {
-    -webkit-animation: timer-spinner 1s linear infinite;
-    animation: timer-spinner 1s linear infinite;
-    -webkit-animation-delay: -0.5s;
-    animation-delay: -0.5s;
+    opacity: 0.1;
+    -webkit-transform:rotate(0deg) translate(0,-60px);
+            transform:rotate(0deg) translate(0,-60px);
 }
 .timer-spinner > div:nth-of-type(2) {
-    -webkit-animation: timer-spinner 1s linear infinite;
-    animation: timer-spinner 1s linear infinite;
-    -webkit-animation-delay: -0.4166666666666667s;
-    animation-delay: -0.4166666666666667s;
+    opacity: 0.2;
+    -webkit-transform:rotate(30deg) translate(0,-60px);
+            transform:rotate(30deg) translate(0,-60px);
 }
 .timer-spinner > div:nth-of-type(3) {
-    -webkit-animation: timer-spinner 1s linear infinite;
-    animation: timer-spinner 1s linear infinite;
-    -webkit-animation-delay: -0.33333333333333337s;
-    animation-delay: -0.33333333333333337s;
+    opacity: 0.3;
+    -webkit-transform:rotate(60deg) translate(0,-60px);
+            transform:rotate(60deg) translate(0,-60px);
 }
 .timer-spinner > div:nth-of-type(4) {
-    -webkit-animation: timer-spinner 1s linear infinite;
-    animation: timer-spinner 1s linear infinite;
-    -webkit-animation-delay: -0.25s;
-    animation-delay: -0.25s;
+    opacity: 0.4;
+    -webkit-transform:rotate(90deg) translate(0,-60px);
+            transform:rotate(90deg) translate(0,-60px);
 }
 .timer-spinner > div:nth-of-type(5) {
-    -webkit-animation: timer-spinner 1s linear infinite;
-    animation: timer-spinner 1s linear infinite;
-    -webkit-animation-delay: -0.16666666666666669s;
-    animation-delay: -0.16666666666666669s;
+    opacity: 0.5;
+    -webkit-transform:rotate(120deg) translate(0,-60px);
+            transform:rotate(120deg) translate(0,-60px);
 }
 .timer-spinner > div:nth-of-type(6) {
-    -webkit-animation: timer-spinner 1s linear infinite;
-    animation: timer-spinner 1s linear infinite;
-    -webkit-animation-delay: -0.08333333333333331s;
-    animation-delay: -0.08333333333333331s;
+    opacity: 0.6;
+    -webkit-transform:rotate(150deg) translate(0,-60px);
+            transform:rotate(150deg) translate(0,-60px);
 }
 .timer-spinner > div:nth-of-type(7) {
-    -webkit-animation: timer-spinner 1s linear infinite;
-    animation: timer-spinner 1s linear infinite;
-    -webkit-animation-delay: 0s;
-    animation-delay: 0s;
+    opacity: 0.7;
+    -webkit-transform:rotate(180deg) translate(0,-60px);
+            transform:rotate(180deg) translate(0,-60px);
 }
 .timer-spinner > div:nth-of-type(8) {
-    -webkit-animation: timer-spinner 1s linear infinite;
-    animation: timer-spinner 1s linear infinite;
-    -webkit-animation-delay: 0.08333333333333337s;
-    animation-delay: 0.08333333333333337s;
+    opacity: 0.8;
+    -webkit-transform:rotate(210deg) translate(0,-60px);
+            transform:rotate(210deg) translate(0,-60px);
 }
 .timer-spinner > div:nth-of-type(9) {
-    -webkit-animation: timer-spinner 1s linear infinite;
-    animation: timer-spinner 1s linear infinite;
-    -webkit-animation-delay: 0.16666666666666663s;
-    animation-delay: 0.16666666666666663s;
+    opacity: 0.9;
+    -webkit-transform:rotate(240deg) translate(0,-60px);
+            transform:rotate(240deg) translate(0,-60px);
 }
 .timer-spinner > div:nth-of-type(10) {
-    -webkit-animation: timer-spinner 1s linear infinite;
-    animation: timer-spinner 1s linear infinite;
-    -webkit-animation-delay: 0.25s;
-    animation-delay: 0.25s;
-}
-.timer-spinner > div:nth-of-type(11) {
-    -webkit-animation: timer-spinner 1s linear infinite;
-    animation: timer-spinner 1s linear infinite;
-    -webkit-animation-delay: 0.33333333333333337s;
-    animation-delay: 0.33333333333333337s;
-}
-.timer-spinner > div:nth-of-type(12) {
-    -webkit-animation: timer-spinner 1s linear infinite;
-    animation: timer-spinner 1s linear infinite;
-    -webkit-animation-delay: 0.41666666666666663s;
-    animation-delay: 0.41666666666666663s;
+    opacity: 1.0;
+    -webkit-transform:rotate(270deg) translate(0,-60px);
+            transform:rotate(270deg) translate(0,-60px);
 }
