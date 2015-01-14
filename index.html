@@ -154,22 +154,8 @@ a {
             transition: opacity 0.8s;
 }
 
-.delay-1s {
-    -webkit-animation-delay: 1s;
-            animation-delay: 1s;
-}
-
-.delay-2s {
-    -webkit-animation-delay: 2s;
-            animation-delay: 2s;
-}
-
 .light {
     font-weight: 300;
-}
-
-.regular {
-    font-weight: 400;
 }
 
 .bold {
@@ -227,21 +213,10 @@ header nav {
 }
 
 header nav a {
-    color: #94949d;
-    display: inline-block;
-    font-size: 14px;
-    line-height: 66px;
     opacity: 0;
-    padding: 0 12px;
-    text-transform: uppercase;
 
     -webkit-transition: opacity 1s 0.3s;
             transition: opacity 1s 0.3s;
-}
-
-header nav a:active,
-header nav a:hover {
-    color: #2dbb9b;
 }
 
 @media screen and (min-width: 460px) {
@@ -265,10 +240,8 @@ header nav a:hover {
 
 <header class="desktop">
     <nav class="tk-proxima-nova bold">
-        <a href="#home">home</a>
-        <a href="#what-to-do">what to do</a>
-        <a href="#team-cable">team cable</a>
-        <a href="#team-internet">team internet</a>
+        <a href="#" class="highlighted">home</a>
+        <a href="scoreboard/">scoreboard</a>
     </nav>
 </header>
 

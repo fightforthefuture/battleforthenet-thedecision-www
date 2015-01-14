@@ -259,7 +259,7 @@ Countdown.prototype.stop = function() {
 };
 
 Countdown.prototype.showIntro = function() {
-    this.targets.timer.classList.add('loaded');
+    this.targets.timer.className += ' loaded ';
     this.introWasShown = true;
 };
 

@@ -1,3 +1,23 @@
+header nav {
+    position: relative;
+    z-index: 1;
+}
+
+header nav a {
+    color: #94949d;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 66px;
+    padding: 0 12px;
+    text-transform: uppercase;
+}
+
+header nav a:active,
+header nav a:hover,
+body header nav a.highlighted {
+    color: #2dbb9b;
+}
+
 body.loaded header nav a {
     opacity: 1;
 }
@@ -189,7 +209,7 @@ body #battle .form-wrapper .politicians .politician img {
             transition: opacity 0.3s;
 }
 
-@media screen and (min-width: 510px) {
+@media screen and (min-width: 520px) {
     body #battle .form-wrapper .politicians .politician {
         display: block;
         position: absolute;
@@ -221,10 +241,6 @@ body #battle #petition {
     color: #505073;
     margin: 0 auto;
     width: 270px;
-
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
 }
 
 body #battle #petition input:first-child {
@@ -246,9 +262,6 @@ body #battle #petition input {
     padding: 12px 14px;
     width: 100%;
     -webkit-appearance: none;
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
 }
 
 body #battle #petition input.input-address {
@@ -304,15 +317,78 @@ body #battle p.disclaimer a:hover {
 
 
 /* Phone call form */
-.phone-call-form {
+body #battle .phone-call-form {
+    display: none;
     margin: 0 auto;
     width: 270px;
 }
 
-.phone-call-form header {
+body #battle .phone-call-form header {
     background-color: #5d5d7a;
     border-radius: 6px 6px 0 0;
+    font-size: 16px;
+    font-weight: bold;
     padding: 26px 30px;
+}
+
+body #battle .phone-call-form section {
+    background-color: #fff;
+    color: #7d7d97;
+    line-height: 40px;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 0 20px 20px;
+}
+
+body #battle .phone-call-form section input {
+    border: 1px solid #ccc;
+    color: #505073;
+    font-family: "proxima-nova", sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 6px 12px;
+}
+
+body #battle .phone-call-form section .policy {
+    line-height: 22px;
+    font-weight: normal;
+}
+
+body #battle .phone-call-form footer {
+    background-color: #c6e5dd;
+    border-radius: 0 0 6px 6px;
+}
+
+body #battle .phone-call-form footer button {
+    background-color: #20cba1;
+    border-radius: 6px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-family: "proxima-nova", sans-serif;
+    font-size: 19px;
+    font-weight: bold;
+    line-height: 43px;
+    margin: 6px 0 8px;
+    text-transform: uppercase;
+    width: 250px;
+
+    -webkit-transition: opacity 0.3s;
+            transition: opacity 0.3s;
+}
+
+body #battle .phone-call-form footer button:hover {
+    opacity: 0.9;
+}
+
+body #battle .phone-call-form footer button:active {
+    opacity: 0.7;
+}
+
+@media screen and (min-width: 500px) {
+    body #battle .phone-call-form {
+        width: 420px;
+    }
 }
 
 /* Modal */
