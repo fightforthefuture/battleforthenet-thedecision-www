@@ -128,22 +128,41 @@ var Template = require('./Template');
         },
         remaining: 3
     });
+
+    var LiveURLs = {
+        geography: 'https://fftf-geocoder.herokuapp.com',
+        politicians: 'https://spreadsheets.google.com/feeds/list/12g70eNkGA2hhRYKSENaeGxsgGyFukLRMHCqrLizdhlw/default/public/values?alt=json'
+    };
+    var DebugURLs = {
+        geography: 'debug/geography.json',
+        politicians: 'debug/politicians.json'
+    };
+
+    var URLs;
+    if (location.href.match(/localhost/)) {
+        URLs = DebugURLs;
+    } else {
+        URLs = LiveURLs;
+    }
+
     new AJAX({
-        url: 'https://fftf-geocoder.herokuapp.com',
+        url: URLs.geography,
         success: function(e) {
             var json = JSON.parse(e.target.responseText);
             ajaxResponses.geography = json;
             ajaxQueue.tick();
         }
     });
+
     new AJAX({
-        url: 'https://spreadsheets.google.com/feeds/list/1-hBOL7oNJXWvUdhK0veiybSXaYFUZu1aNUuRyNeaUmg/default/public/values?alt=json',
+        url: URLs.politicians,
         success: function(e) {
             var json = JSON.parse(e.target.responseText);
             ajaxResponses.politicians = json.feed.entry;
             ajaxQueue.tick();
         }
     });
+
     new AJAX({
         url: 'snippets/form.html',
         success: function(e) {
