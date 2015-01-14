@@ -124,5 +124,16 @@ var Queue = require('./Queue');
                 });
             }
         });
+
+        new AJAX({
+            url: 'templates/TeamInternetSection.html',
+            success: function(e) {
+                ajaxResponses.teamCableTemplate = e.target.responseText;
+                new TeamCableSection({
+                    target: '.team-internet-target',
+                    template: ajaxResponses.teamCableTemplate
+                });
+            }
+        });
     }
 })();

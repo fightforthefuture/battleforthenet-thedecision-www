@@ -414,6 +414,30 @@ body #battle .phone-call-form footer button:active {
     max-width: 768px;
 }
 
+/* Team Internet */
+#battle section#team-internet {
+    background-color: #313142;
+    border-top: 10px solid #112;
+    font-family: "proxima-nova", sans-serif;
+    margin: 64px 0 0;
+    padding: 16px 25px 64px;
+}
+#battle section#team-internet h2 {
+    font-size: 50px;
+    font-weight: 300;
+}
+#battle section#team-internet p {
+    color: #eee;
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 32px;
+    margin: 36px auto 0;
+    max-width: 768px;
+}
+#battle section#team-internet .supporter {
+    display: inline-block;
+}
+
 
 
 
