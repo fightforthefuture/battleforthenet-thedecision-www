@@ -154,6 +154,10 @@ var Queue = require('./Queue');
                     target: '.modals-target',
                     template: e.target.responseText
                 });
+                $('.modal .close').click(function(e) {
+                    e.preventDefault();
+                    $('.overlay').addClass('invisible');
+                });
             }
         });
 
