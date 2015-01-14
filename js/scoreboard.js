@@ -311,7 +311,7 @@ jQuery(function($) {
             if (player)
             {
 
-            
+
                 player.weightGenerated = weight--;
 
                 player.positioned = true;
