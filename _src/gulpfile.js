@@ -18,10 +18,9 @@ function onError(e) {
 }
 
 function bundle() {
+    console.log('Bundling');
     return bundler.bundle()
-    .on('error', onError) // Log errors
-
-    .pipe(source('battle.js'))
-
-    .pipe(gulp.dest('../js/'));
+        .on('error', onError) // Log errors
+        .pipe(source('battle.js'))
+        .pipe(gulp.dest('../js/'));
 }
