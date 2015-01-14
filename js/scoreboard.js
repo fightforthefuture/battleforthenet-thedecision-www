@@ -153,7 +153,7 @@ jQuery(function($) {
             var player = players[i];
             var $el = $.template('#player', player);
 
-            subdomain = 'http://';
+            var subdomain = 'http://';
 
             if (player.subdomain)
                 subdomain += player.subdomain;
