@@ -1,4 +1,4 @@
-### Compiling battle.js
+### Compiling battle.js!
 ```sh
 cd _src
 npm install
