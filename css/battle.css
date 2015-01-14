@@ -118,13 +118,171 @@ body.typekit #battle .timer .card .type {
 
 
 
+/* Politicians */
+body #battle .form-wrapper .politician {
+    height: 150px;
+    margin: 0 0 12px;
+    position: relative;
+    width: 115px;
+}
+
+body #battle .form-wrapper .politician p.name {
+    bottom: 2px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    position: absolute;
+    text-align: center;
+    text-shadow: 1px 1px 7px rgba(0, 0, 0, 0.7);
+    width: 100%;
+    z-index: 1;
+}
+
+body #battle .form-wrapper .politician p.stance {
+    background: #2e2e3f;
+    border-radius: 7px;
+    bottom: 0;
+    color: #ccc;
+    font-size: 8px;
+    font-weight: bold;
+    line-height: 17px;
+    margin: 0 0 0 5px;
+    position: absolute;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+    text-transform: uppercase;
+    width: 105px;
+    z-index: 1;
+}
+
+body #battle .form-wrapper .politician.team-cable p.name,
+body #battle .form-wrapper .politician.team-cable p.stance {
+    color: #fc3d41;
+}
+
+body #battle .form-wrapper .politician.team-internet p.name,
+body #battle .form-wrapper .politician.team-internet p.stance {
+    color: #20cba1;
+}
+
+body #battle .form-wrapper .politician img {
+    display: block;
+    opacity: 0;
+    width: 115px;
+
+    -webkit-transition: opacity 0.3s;
+            transition: opacity 0.3s;
+}
+
+body #battle .form-wrapper .politician:first-child img {
+    border-radius: 5px 0 0 5px;
+}
+
+body #battle .form-wrapper .politician:last-child img {
+    border-radius: 0 5px 5px 0;
+}
+
+@media screen and (min-width: 460px) {
+    body #battle .form-wrapper .politician {
+        display: inline-block;
+    }
+
+    body #battle .form-wrapper .politician img {
+        border-radius: 5px !important;
+    }
+}
+
+@media screen and (max-width: 459px) {
+    body #battle .form-wrapper .politician {
+    }
+}
+
 /* Form */
-#form {
+body #battle #petition {
     background-color: #fff;
     border-radius: 6px;
-    height: 180px;
+    color: #505073;
+    margin: 0 auto;
     width: 270px;
+
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
 }
+
+body #battle #petition input:first-child {
+    border-radius: 6px 6px 0 0;
+}
+
+body #battle #petition input {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+    color: #505073;
+    display: block;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 43px;
+    margin: 0;
+    padding: 0 14px;
+    width: 100%;
+    -webkit-appearance: none;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+body #battle #petition input.input-address {
+    border-right: 1px solid #ccc;
+    float: left;
+    width: 150px;
+}
+
+body #battle #petition input.input-zip {
+    float: left;
+    width: 120px;
+}
+
+body #battle #petition button {
+    background-color: #20cba1;
+    border-radius: 6px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 19px;
+    line-height: 43px;
+    margin: 6px 0 8px;
+    text-transform: uppercase;
+    width: 250px;
+
+    -webkit-transition: opacity 0.3s;
+            transition: opacity 0.3s;
+}
+
+body #battle #petition button:hover {
+    opacity: 0.9;
+}
+
+body #battle #petition button:active {
+    opacity: 0.7;
+}
+
+body #battle p.disclaimer {
+    color: #5d5d7a;
+    font-size: 13px;
+}
+
+body #battle p.disclaimer a {
+    color: #8d8db2;
+}
+
+body #battle p.disclaimer a:hover {
+    color: #20cba1;
+}
+
+
+
 
 
 
@@ -145,8 +303,9 @@ body.typekit #battle .timer .card .type {
         opacity: 0
     }
 }
-#battle .spinner .timer-spinner {
-    height: 85px;
+.timer-spinner {
+    height: 110px;
+    margin: 0 auto;
     opacity: 0.5;
     overflow: hidden;
     width: 200px;
@@ -154,7 +313,7 @@ body.typekit #battle .timer .card .type {
     -webkit-transform: scale(0.6);
             transform: scale(0.6);
 }
-#battle .spinner .timer-spinner > div {
+.timer-spinner > div {
     background: #747499;
     border-radius: 6px;
     height: 40px;
@@ -163,73 +322,73 @@ body.typekit #battle .timer .card .type {
     top: 80px;
     width: 12px;
 }
-#battle .spinner .timer-spinner > div:nth-of-type(1) {
+.timer-spinner > div:nth-of-type(1) {
     -webkit-animation: timer-spinner 1s linear infinite;
     animation: timer-spinner 1s linear infinite;
     -webkit-animation-delay: -0.5s;
     animation-delay: -0.5s;
 }
-#battle .spinner .timer-spinner > div:nth-of-type(2) {
+.timer-spinner > div:nth-of-type(2) {
     -webkit-animation: timer-spinner 1s linear infinite;
     animation: timer-spinner 1s linear infinite;
     -webkit-animation-delay: -0.4166666666666667s;
     animation-delay: -0.4166666666666667s;
 }
-#battle .spinner .timer-spinner > div:nth-of-type(3) {
+.timer-spinner > div:nth-of-type(3) {
     -webkit-animation: timer-spinner 1s linear infinite;
     animation: timer-spinner 1s linear infinite;
     -webkit-animation-delay: -0.33333333333333337s;
     animation-delay: -0.33333333333333337s;
 }
-#battle .spinner .timer-spinner > div:nth-of-type(4) {
+.timer-spinner > div:nth-of-type(4) {
     -webkit-animation: timer-spinner 1s linear infinite;
     animation: timer-spinner 1s linear infinite;
     -webkit-animation-delay: -0.25s;
     animation-delay: -0.25s;
 }
-#battle .spinner .timer-spinner > div:nth-of-type(5) {
+.timer-spinner > div:nth-of-type(5) {
     -webkit-animation: timer-spinner 1s linear infinite;
     animation: timer-spinner 1s linear infinite;
     -webkit-animation-delay: -0.16666666666666669s;
     animation-delay: -0.16666666666666669s;
 }
-#battle .spinner .timer-spinner > div:nth-of-type(6) {
+.timer-spinner > div:nth-of-type(6) {
     -webkit-animation: timer-spinner 1s linear infinite;
     animation: timer-spinner 1s linear infinite;
     -webkit-animation-delay: -0.08333333333333331s;
     animation-delay: -0.08333333333333331s;
 }
-#battle .spinner .timer-spinner > div:nth-of-type(7) {
+.timer-spinner > div:nth-of-type(7) {
     -webkit-animation: timer-spinner 1s linear infinite;
     animation: timer-spinner 1s linear infinite;
     -webkit-animation-delay: 0s;
     animation-delay: 0s;
 }
-#battle .spinner .timer-spinner > div:nth-of-type(8) {
+.timer-spinner > div:nth-of-type(8) {
     -webkit-animation: timer-spinner 1s linear infinite;
     animation: timer-spinner 1s linear infinite;
     -webkit-animation-delay: 0.08333333333333337s;
     animation-delay: 0.08333333333333337s;
 }
-#battle .spinner .timer-spinner > div:nth-of-type(9) {
+.timer-spinner > div:nth-of-type(9) {
     -webkit-animation: timer-spinner 1s linear infinite;
     animation: timer-spinner 1s linear infinite;
     -webkit-animation-delay: 0.16666666666666663s;
     animation-delay: 0.16666666666666663s;
 }
-#battle .spinner .timer-spinner > div:nth-of-type(10) {
+.timer-spinner > div:nth-of-type(10) {
     -webkit-animation: timer-spinner 1s linear infinite;
     animation: timer-spinner 1s linear infinite;
     -webkit-animation-delay: 0.25s;
     animation-delay: 0.25s;
 }
-#battle .spinner .timer-spinner > div:nth-of-type(11) {
+.timer-spinner > div:nth-of-type(11) {
     -webkit-animation: timer-spinner 1s linear infinite;
     animation: timer-spinner 1s linear infinite;
     -webkit-animation-delay: 0.33333333333333337s;
     animation-delay: 0.33333333333333337s;
 }
-#battle .spinner .timer-spinner > div:nth-of-type(12) {
+.timer-spinner > div:nth-of-type(12) {
     -webkit-animation: timer-spinner 1s linear infinite;
     animation: timer-spinner 1s linear infinite;
     -webkit-animation-delay: 0.41666666666666663s;

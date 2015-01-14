@@ -25,14 +25,30 @@
 <meta name="twitter:image" content="https://www.battleforthenet.com/images/cruz_moron.png"/>
 <meta name="twitter:url" content="https://www.battleforthenet.com/#protest"/>
 <style>
-html, body {
+html {
     background-color: #1b1b24;
     font-family: arial, sans-serif;
-    height: 100%;
+    overflow-y: scroll;
     margin: 0;
     overflow-x: hidden;
-    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
     width: 100%;
+}
+
+* {
+    -webkit-tap-highlight-color: 0;
+
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
 }
 
 #battle {
@@ -47,7 +63,7 @@ html, body {
     margin-left: auto;
     margin-right: auto;
     max-width: 900px;
-    padding: 0 32px;
+    padding: 0 25px;
 
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
@@ -98,6 +114,7 @@ html, body {
 #battle .spinner {
     height: 120px;
     margin: 0 auto;
+    overflow: hidden;
     width: 200px;
 }
 
@@ -212,7 +229,6 @@ header nav a {
     line-height: 66px;
     opacity: 0;
     padding: 0 12px;
-    text-decoration: none;
     text-transform: uppercase;
 
     -webkit-transition: opacity 1s 0.3s;
@@ -302,14 +318,14 @@ header nav a:hover {
     </h1>
 
     <p class="padded-900 tk-proxima-nova light">
-        Comcast wants to end net neutrality so it can push slow lanes on the Internet. On 2/26, the FCC will vote on handing the Internet over to Comcast or saving net neutrality. Their decision hinges on what they hear from Congress, companies, and us. We've spoken up, so now this is the most important person we need to make sure speaks up for net neutrality:
+        Comcast wants to end net neutrality so it can push slow lanes on the Internet. On 2/26, the FCC will vote on handing the Internet over to Comcast or saving net neutrality. Their decision hinges on what they hear from Congress, companies, and us. We've spoken up, so now these are the most important people we need to make sure speaks up for net neutrality:
     </p>
 
     <p class="please-wait padded-900 pulse">
         Please wait...
     </p>
 
-    <p class="politicians loading padded-900 tk-proxima-nova light"></p>
+    <p class="form-wrapper loading padded-900 tk-proxima-nova"></p>
 </section>
 
 <script>

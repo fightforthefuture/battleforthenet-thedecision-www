@@ -67,19 +67,66 @@ var Template = require('./Template');
                 });
             }
 
-            if (true || politicians.length === 0) {
-                politicians = ajaxResponses.politicians.filter(function(politician) {
+            if (politicians.length === 0) {
+                var teamCable = ajaxResponses.politicians.filter(function(politician) {
                     return (
                         (politician.gsx$team.$t === 'team-cable')
                     );
                 });
+
+                politicians = [];
+                politicians[0] = teamCable[Math.floor(Math.random() * teamCable.length) - 1];
+                while (!politicians[1] || politicians[0] === politicians[1]) {
+                    politicians[1] = teamCable[Math.floor(Math.random() * teamCable.length) - 1];
+                }
             }
 
-            var politiciansNode = document.querySelector('#battle .politicians');
-            politiciansNode.innerHTML = Template(ajaxResponses.formSnippet, {
-                politicians: politicians
+            var formWrapperNode = document.querySelector('#battle .form-wrapper');
+            formWrapperNode.innerHTML = Template(ajaxResponses.formSnippet, {
+                politicians: politicians.map(function(politician) {
+                    var team = politician.gsx$team.$t;
+                    var stance = 'undecided';
+                    if (team === 'team-cable') {
+                        stance = 'anti internet';
+                    } else if (team === 'team-internet') {
+                        stance = 'pro internet';
+                    }
+                    return {
+                        image: 'images/scoreboard/' + politician.gsx$imagepleasedontedit.$t,
+                        name: politician.gsx$name.$t,
+                        stance: stance,
+                        team: team
+                    }
+                })
             });
-            politiciansNode.className = politiciansNode.className.replace(/loading/, ' ');
+            formWrapperNode.className = formWrapperNode.className.replace(/loading/, ' ');
+
+            // Randomize disclaimer
+            var loc = window.location.href;
+            random_org = null;
+            if (loc.indexOf('org=') == -1) {
+                var coin_toss = Math.random();
+                if (coin_toss < .2) {
+                    random_org = 'fp';
+                } else if (coin_toss < .6) {
+                    random_org = 'dp';
+                } else {
+                    random_org = 'fftf';
+                }
+            }
+            if (loc.indexOf('org=fp') != -1 || random_org == 'fp') {
+                document.getElementById('org').value = 'fp';
+                document.getElementById('randomize_disclosure').style.display = 'none';
+                document.getElementById('fp_disclosure').style.display = 'block';
+            } else if (loc.indexOf('org=dp') != -1 || random_org == 'dp') {
+                document.getElementById('org').value = 'dp';
+                document.getElementById('randomize_disclosure').style.display = 'none';
+                document.getElementById('dp_disclosure').style.display = 'block';
+            } else if (loc.indexOf('org=fftf') != -1 || random_org == 'fftf') {
+                document.getElementById('org').value = 'fftf';
+                document.getElementById('randomize_disclosure').style.display = 'none';
+                document.getElementById('fftf_disclosure').style.display = 'block';
+            }
         },
         remaining: 3
     });
