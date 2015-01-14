@@ -117,3 +117,8 @@ section.title h2 {
     -moz-user-select: none;
     
 }
+.btn:hover {
+    text-decoration: none;
+    color: white;
+    background-color: #348D34;
+}

@@ -112,6 +112,7 @@ jQuery(function($) {
 
             player = {
                 frontpage: +player.gsx$frontpage.$t,
+                first: player.gsx$first.$t,
                 name: player.gsx$name.$t,
                 organization: player.gsx$organization.$t,
                 image: imageBaseURL + player.gsx$imagepleasedontedit.$t,
@@ -152,6 +153,18 @@ jQuery(function($) {
             var player = players[i];
             var $el = $.template('#player', player);
 
+            subdomain = 'http://';
+
+            if (player.subdomain)
+                subdomain += player.subdomain;
+            else
+                subdomain += player.first + player.name;
+
+            if (player.team == 'team-internet')
+                subdomain += '.savesthe.net';
+            else
+                subdomain += 'breaksthe.net';
+
             if (player.twitter) {
                 var shareText;
                 if (player.sharetext) {
@@ -163,10 +176,18 @@ jQuery(function($) {
                 var url = 'https://twitter.com/intent/tweet?text=' + shareText + '&url=https://www.battleforthenet.com&related=fightfortheftr';
 
                 var $twitterOverlay = $.template('#twitter-overlay', {
-                    twitter: url
+                    twitter: url,
+                    subdomain: subdomain
                 });
 
                 $el.append($twitterOverlay);
+            }
+            else {
+                var $moreOverlay = $.template('#more-overlay', {
+                    subdomain: subdomain
+                });
+
+                $el.append($moreOverlay);
             }
 
             $el.data('meta', player);
@@ -287,16 +308,20 @@ jQuery(function($) {
                 delete query.team;
                 player = _.findWhere(players, query);
             }
+            if (player)
+            {
 
-            player.weightGenerated = weight--;
+            
+                player.weightGenerated = weight--;
 
-            player.positioned = true;
+                player.positioned = true;
 
-            map[position.x][position.y] = true;
-            if (player.size === 'large') {
-                map[position.x + 1][position.y] = true;
-                map[position.x][position.y + 1] = true;
-                map[position.x + 1][position.y + 1] = true;
+                map[position.x][position.y] = true;
+                if (player.size === 'large') {
+                    map[position.x + 1][position.y] = true;
+                    map[position.x][position.y + 1] = true;
+                    map[position.x + 1][position.y + 1] = true;
+                }
             }
 
             // printMap(position, map);

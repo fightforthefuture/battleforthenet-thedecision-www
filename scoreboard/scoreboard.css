@@ -212,7 +212,6 @@ section.political .isotope .politician .details .organization {
 section.political .isotope .politician .twitter {
     background-color: rgba(0,0,0,.6);
     color: #fff;
-    cursor: pointer;
     font-weight: 700;
     height: 100%;
     left: 0;
@@ -224,23 +223,63 @@ section.political .isotope .politician .twitter {
     -webkit-transition: opacity .3s;
     transition: opacity .3s;
 }
-
-section.political .isotope .politician .twitter img {
-    height: auto;
-    width: auto;
-    padding-top: 160px;
+section.political .isotope .politician .twitter .tweet_link {
+    position: absolute;
+    display: block;
+    left: 50%;
+    margin-left: -60px;
+    bottom: 97px;
+    width: 120px;
+    height: 35px;
+    background: #1abcc2;
+    line-height: 35px;
+    text-transform: uppercase;
+    font-size: 15px;
+    text-align: center;
+    color: white;
     margin-top: 40px;
     -webkit-transition: margin-top .3s;
     transition: margin-top .3s;
 }
+section.political .isotope .politician .twitter .more_link {
+    position: absolute;
+    display: block;
+    left: 50%;
+    margin-left: -60px;
+    bottom: 53px;
+    width: 120px;
+    height: 35px;
+    background: #4dbca1;
+    line-height: 35px;
+    text-transform: uppercase;
+    font-size: 15px;
+    text-align: center;
+    color: white;
+    margin-top: 40px;
+    -webkit-transition: margin-top .3s;
+    transition: margin-top .3s;
+}
+section.political .isotope .politician .twitter img {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+section.political .isotope .politician .twitter:hover .tweet_link {
+    margin-top: 0;
+}
+section.political .isotope .politician .twitter .tweet_link:hover {
+    text-decoration: none;
+}
+section.political .isotope .politician .twitter .more_link:hover {
+    text-decoration: none;
+}
+
 
 section.political .isotope .politician .twitter:hover {
     opacity: 1;
 }
 
-section.political .isotope .politician .twitter:hover img {
-    margin-top: 0;
-}
+
 
 section.political .isotope .politician.small {
     height: 190px;
@@ -255,10 +294,6 @@ section.political .isotope .politician.small .details .name {
     border-bottom: 0;
     font-size: 15px;
     margin-bottom: 0;
-}
-
-section.political .isotope .politician.small .twitter img {
-    padding-top: 45px;
 }
 
 @media only screen and (min-width:480px) {
