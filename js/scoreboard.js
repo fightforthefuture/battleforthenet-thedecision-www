@@ -39,9 +39,15 @@ jQuery(function($) {
         $politicalSelect.val(state);
     }
 
-    $.getJSON(spreadsheetUrl, function(response) {
+    if (window.global && global.ajaxResponses) {
+        onPoliticiansAvailable(global.ajaxResponses.politicians);
+    } else {
+        $.getJSON(spreadsheetUrl, function(response) {
+            onPoliticiansAvailable(response.feed.entry);
+        });
+    }
 
-        spreadsheetData = response.feed.entry;
+    function onPoliticiansAvailable(spreadsheetData) {
         // Parse & sort by weight
 
         if (state) {
@@ -96,7 +102,7 @@ jQuery(function($) {
                 }
             });
         });
-    });
+    }
 
     function showPlayers(data, showGeneral, state) {
         $isotope.html('');
@@ -163,7 +169,7 @@ jQuery(function($) {
             if (player.team == 'team-internet')
                 subdomain += '.savesthe.net';
             else
-                subdomain += 'breaksthe.net';
+                subdomain += '.breaksthe.net';
 
             if (player.twitter) {
                 var shareText;
@@ -200,7 +206,9 @@ jQuery(function($) {
         regenerateWeights(players);
 
         // Mark body as loaded.
-        document.body.className = 'loaded';
+        if (location.href.match(/\/scoreboard\//)) {
+            document.body.className = 'loaded';
+        }
 
         // Initialize isotope.
         $isotope.isotope({

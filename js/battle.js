@@ -51,16 +51,16 @@ var Queue = require('./Queue');
 
 // Load geography & politicians JSON
 (function() {
-    var ajaxResponses = {};
+    global.ajaxResponses = {};
     var ajaxQueue = new Queue({
         callback: function() {
             var pleaseWaitNode = document.querySelector('#battle .please-wait');
             pleaseWaitNode.parentNode.removeChild(pleaseWaitNode);
 
             new PetitionForm({
-                allPoliticians: ajaxResponses.politicians,
-                formTemplate: ajaxResponses.formTemplate,
-                geography: ajaxResponses.geography,
+                allPoliticians: global.ajaxResponses.politicians,
+                formTemplate: global.ajaxResponses.formTemplate,
+                geography: global.ajaxResponses.geography,
                 target: '#battle .form-wrapper'
             });
 
@@ -93,7 +93,7 @@ var Queue = require('./Queue');
         url: URLs.geography,
         success: function(e) {
             var json = JSON.parse(e.target.responseText);
-            ajaxResponses.geography = json;
+            global.ajaxResponses.geography = json;
             ajaxQueue.tick();
         }
     });
@@ -102,7 +102,7 @@ var Queue = require('./Queue');
         url: URLs.politicians,
         success: function(e) {
             var json = JSON.parse(e.target.responseText);
-            ajaxResponses.politicians = json.feed.entry;
+            global.ajaxResponses.politicians = json.feed.entry;
             ajaxQueue.tick();
         }
     });
@@ -110,7 +110,7 @@ var Queue = require('./Queue');
     new AJAX({
         url: 'templates/PetitionForm.html',
         success: function(e) {
-            ajaxResponses.formTemplate = e.target.responseText;
+            global.ajaxResponses.formTemplate = e.target.responseText;
             ajaxQueue.tick();
         }
     });
@@ -145,6 +145,21 @@ var Queue = require('./Queue');
                 });
             }
         });
+
+        if (!navigator.userAgent.match(/mobile/i)) {
+            new AJAX({
+                url: 'templates/PoliticalScoreboardSection.html',
+                success: function(e) {
+                    new SimpleSection({
+                        target: '.scoreboard-target',
+                        template: e.target.responseText
+                    });
+
+                    loadCSS('scoreboard/scoreboard.css');
+                    loadJS('js/scoreboard.js', true);
+                }
+            });
+        }
     }
 })();
 

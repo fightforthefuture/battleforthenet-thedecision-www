@@ -307,6 +307,7 @@ header nav a {
 
     <div class="team-cable-target"></div>
     <div class="team-internet-target"></div>
+    <div class="scoreboard-target"></div>
     <div class="footer-target"></div>
 </section>
 
@@ -321,9 +322,12 @@ function loadCSS(href) {
     link.setAttribute('rel', 'stylesheet');
     document.head.appendChild(link);
 }
-function loadJS(src) {
+function loadJS(src, blocking) {
     var script = document.createElement('script');
     script.setAttribute('src', src);
+    if (blocking) {
+        script.setAttribute('async', false);
+    }
     document.body.appendChild(script);
 }
 
@@ -357,6 +361,12 @@ if (IsOldIE) {
         loadJS('./js/battle.js');
         loadJS('./js/typekit.js');
     });
+
+    if (!navigator.userAgent.match(/mobile/i)) {
+        document.write("<script src='js/vendor/jquery.js'><\/script>");
+        document.write("<script src='js/vendor/underscore.js'><\/script>");
+        document.write("<script src='js/vendor/isotope.pkgd.js'><\/script>");
+    }
 }
 </script>
 </body>

@@ -438,6 +438,29 @@ body #battle .phone-call-form footer button:active {
     display: inline-block;
 }
 
+/* Political Scoreboard */
+#battle section#political {
+    background-color: #111;
+    border-top: 10px solid #112;
+    font-family: "proxima-nova", sans-serif;
+    padding: 64px 25px 64px;
+}
+#battle section#political h2 {
+    font-size: 50px;
+    font-weight: 300;
+}
+#battle section#political p {
+    color: #eee;
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 32px;
+    margin: 36px auto 0;
+    max-width: 768px;
+}
+#battle section#political .supporter {
+    display: inline-block;
+}
+
 
 
 
