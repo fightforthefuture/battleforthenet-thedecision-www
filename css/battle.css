@@ -218,6 +218,7 @@ body #battle #petition input {
     border-radius: 0;
     color: #505073;
     display: block;
+    font-family: "proxima-nova", sans-serif;
     font-size: 15px;
     font-weight: bold;
     line-height: 43px;
@@ -247,7 +248,9 @@ body #battle #petition button {
     border: none;
     color: #fff;
     cursor: pointer;
+    font-family: "proxima-nova", sans-serif;
     font-size: 19px;
+    font-weight: bold;
     line-height: 43px;
     margin: 6px 0 8px;
     text-transform: uppercase;
