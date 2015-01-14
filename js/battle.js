@@ -119,6 +119,7 @@ function AJAX(params) {
     this.error = params.error;
     this.method = params.method || 'GET';
     this.success = params.success;
+    this.form = params.form;
     this.url = params.url;
 
     this.request = new XMLHttpRequest();
@@ -132,7 +133,78 @@ function AJAX(params) {
         this.request.onerror = this.error;
     }
 
-    this.request.send();
+    if (this.form) {
+        var params = this.serializeForm(this.form);
+        this.request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        this.request.send(params);
+    } else {
+        this.request.send();
+    }
+
+}
+
+AJAX.prototype.serializeForm = function(form) {
+    if (!form || form.nodeName !== "FORM") {
+        return;
+    }
+
+    var i, j, q = [];
+    for (i = form.elements.length - 1; i >= 0; i = i - 1) {
+        if (form.elements[i].name === "") {
+            continue;
+        }
+        switch (form.elements[i].nodeName) {
+        case 'INPUT':
+            switch (form.elements[i].type) {
+            case 'text':
+            case 'hidden':
+            case 'password':
+            case 'button':
+            case 'reset':
+            case 'submit':
+                q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+                break;
+            case 'checkbox':
+            case 'radio':
+                if (form.elements[i].checked) {
+                    q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+                }
+                break;
+            case 'file':
+                break;
+            }
+            break;
+        case 'TEXTAREA':
+            q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+            break;
+        case 'SELECT':
+            switch (form.elements[i].type) {
+            case 'select-one':
+                q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+                break;
+            case 'select-multiple':
+                for (j = form.elements[i].options.length - 1; j >= 0; j = j - 1) {
+                    if (form.elements[i].options[j].selected) {
+                        q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].options[j].value));
+                    }
+                }
+                break;
+            }
+            break;
+        case 'BUTTON':
+            switch (form.elements[i].type) {
+            case 'reset':
+            case 'submit':
+            case 'button':
+                q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+                break;
+            }
+            break;
+        }
+    }
+
+    return q.join("&");
 }
 
 module.exports = AJAX;
@@ -303,6 +375,7 @@ OrganizationRotation.prototype.addEventListeners = function() {
 module.exports = OrganizationRotation;
 
 },{}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\PetitionForm.js":[function(require,module,exports){
+var AJAX = require('./AJAX');
 var Template = require('./Template');
 
 
@@ -369,14 +442,56 @@ PetitionForm.prototype.render = function() {
 };
 
 PetitionForm.prototype.addEventListeners = function() {
-    this.DOMNode.querySelector('#petition').addEventListener('submit', function(e) {
+    var petitionFormNode = this.DOMNode.querySelector('#petition');
+    var phoneCallFormNode = this.DOMNode.querySelector('#phone-call-form');
+    var politiciansNode = this.DOMNode.querySelector('.politicians');
+
+    petitionFormNode.addEventListener('submit', function(e) {
         e.preventDefault();
+
+        petitionFormNode.style.display = 'none';
+        politiciansNode.style.display = 'none';
+
+        phoneCallFormNode.style.display = 'block';
+
+        var url = petitionFormNode.getAttribute('action');
+        new AJAX({
+            url: url,
+            method: 'POST',
+            form: petitionFormNode,
+            success: function(e) {
+                var json = JSON.parse(e.target.responseText);
+                console.log('Petition response:', json);
+            }
+        });
+
+    }, false);
+
+    phoneCallFormNode.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var campaignId = 'jan14th';
+        var phoneNumber = phoneCallFormNode.querySelector('#phone').value;
+        var postalCode = petitionFormNode.querySelector('#zip');
+
+        var url =
+            'https://call-congress.fightforthefuture.org/create?' +
+            'campaignId=' + campaignId + '&' +
+            'userPhone=' + phoneNumber + '&' +
+            'zipcode=' + postalCode;
+
+        new AJAX({
+            url: url,
+            success: function(e) {
+                console.log('Call response:', e.target.responseText);
+            }
+        });
     }, false);
 };
 
 module.exports = PetitionForm;
 
-},{"./Template":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Template.js"}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Queue.js":[function(require,module,exports){
+},{"./AJAX":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\AJAX.js","./Template":"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Template.js"}],"c:\\Users\\Chris\\projects\\battleforthenet-thedecision-www\\_src\\js\\Queue.js":[function(require,module,exports){
 function Queue(params) {
     this.callback = params.callback;
     this.context = params.context || this;

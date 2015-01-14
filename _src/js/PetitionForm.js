@@ -1,3 +1,4 @@
+var AJAX = require('./AJAX');
 var Template = require('./Template');
 
 
@@ -64,8 +65,50 @@ PetitionForm.prototype.render = function() {
 };
 
 PetitionForm.prototype.addEventListeners = function() {
-    this.DOMNode.querySelector('#petition').addEventListener('submit', function(e) {
+    var petitionFormNode = this.DOMNode.querySelector('#petition');
+    var phoneCallFormNode = this.DOMNode.querySelector('#phone-call-form');
+    var politiciansNode = this.DOMNode.querySelector('.politicians');
+
+    petitionFormNode.addEventListener('submit', function(e) {
         e.preventDefault();
+
+        petitionFormNode.style.display = 'none';
+        politiciansNode.style.display = 'none';
+
+        phoneCallFormNode.style.display = 'block';
+
+        var url = petitionFormNode.getAttribute('action');
+        new AJAX({
+            url: url,
+            method: 'POST',
+            form: petitionFormNode,
+            success: function(e) {
+                var json = JSON.parse(e.target.responseText);
+                console.log('Petition response:', json);
+            }
+        });
+
+    }, false);
+
+    phoneCallFormNode.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var campaignId = 'jan14th';
+        var phoneNumber = phoneCallFormNode.querySelector('#phone').value;
+        var postalCode = petitionFormNode.querySelector('#zip');
+
+        var url =
+            'https://call-congress.fightforthefuture.org/create?' +
+            'campaignId=' + campaignId + '&' +
+            'userPhone=' + phoneNumber + '&' +
+            'zipcode=' + postalCode;
+
+        new AJAX({
+            url: url,
+            success: function(e) {
+                console.log('Call response:', e.target.responseText);
+            }
+        });
     }, false);
 };
 
